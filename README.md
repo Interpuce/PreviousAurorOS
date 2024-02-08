@@ -20,6 +20,6 @@ AurorOS is a great operation system created by [Gorciu](https://github.com/gorci
 
 For security reasons we don't share our OS source code. 
 
------
+---
 
 _This page is best vieved on Windows 11._
