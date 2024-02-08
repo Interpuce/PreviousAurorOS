@@ -1,5 +1,4 @@
 # License
-🚧 _Currently, this license is in preview._
 
 AurorOS is the proprietary software of the Interpuce Team, consisting of [Gorciu](https://github.com/gorciu-official) and [Eklerka25](https://github.com/Eklerka25). We hereby provide you with a complimentary license to utilize AurorOS. In exchange, we request your adherence to the terms outlined in this license agreement.
 
