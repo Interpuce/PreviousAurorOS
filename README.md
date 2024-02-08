@@ -9,6 +9,7 @@
 ## Downloading
 
 **Stable**: latest non-beta GitHub release
+
 **Latest:** latest from GitHub relases
 
 ## More about OS
