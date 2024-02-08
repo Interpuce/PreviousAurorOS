@@ -14,6 +14,8 @@ _This page isn't good in displaying on Github mobile app._
 
 **Latest:** latest from GitHub relases
 
+If you download our OS you automatically agree license.
+
 ## Source Code
 
 For security reasons we don't share our OS source code. 
