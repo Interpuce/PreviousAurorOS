@@ -6,7 +6,7 @@ _This page isn't good in displaying on Github mobile app._
 
 - 🙋 This is the official AurorOS organization on GitHub. AurorOS was created by [Gorciu](https://github.com/gorciu-official) in cooperation with [Eklerka25](https://github.com/Eklerka25).
 - 🌈 On this repository you can download system.
-- 🧙 On [Gorciu's Discord](https://dsc.gg/gorciu) and [Eklerka25's Discord](https://discord.gg/8PZkmn9G44) we're opening for suggestions.
+- 🧙 On [official Discord server](https://dsc.gg/auror-os) we're opening for suggestions.
 
 ## Downloading
 
