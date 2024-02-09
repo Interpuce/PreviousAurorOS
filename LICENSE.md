@@ -12,7 +12,7 @@ AurorOS is the proprietary software of the Interpuce Team, consisting of [Gorciu
 
 4. **No Warranty:** AurorOS is provided "as is", without any warranty of any kind. The Interpuce Team shall not be liable for any damages arising from the use or inability to use the software.
 
-5. **Support:** You can be supported in Gorciu or Eklerka25 Discord.
+5. **Support:** You can be supported on official Discord.
 
 By using AurorOS, you agree to abide by these terms and conditions. Failure to comply may result in the termination of your license. For any inquiries or permissions related to this license, please contact the Interpuce Team.
 
