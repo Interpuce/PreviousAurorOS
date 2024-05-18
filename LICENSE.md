@@ -3,7 +3,7 @@
 ## 1. Definitions
 1.1. "Software" means the AurorOS operating system, including all its components, documentation, and any updates that may be provided in the future.
 
-1.2. "Licensor" refers to the Interpuce Team, consisting of Gorciu (https://github.com/gorciu-official) and Eklerki25 (https://github.com/Eklerka25), who grant the license to use the Software.
+1.2. "Licensor" refers to the Interpuce Team, consisting of [Gorciu](https://github.com/gorciu-official) and [Eklerka25](https://github.com/Eklerka25), who grant the license to use the Software.
 
 1.3. "User" means any individual or legal entity using the Software under this License.
 
