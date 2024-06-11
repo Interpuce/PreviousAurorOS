@@ -1,4 +1,4 @@
-# License for AurorOS
+# AurorOS License
 
 [See original license](https://github.com/Interpuce/AurorOS/blob/main/docs/licenses/pl-PL.md)
 

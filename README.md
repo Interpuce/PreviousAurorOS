@@ -2,7 +2,7 @@
 
 <img align="right" src="https://avatars.githubusercontent.com/u/157804013?s=200&u=2ce38e6b2cf8349677f2b71a805238a6a8e1c454&v=2" style="width:128px;">
 
-Here are the AurorOS source code for the preview how AurorOS actually works!
+Here are the AurorOS source code basically to users for the preview how AurorOS actually works!
 
 > [!CAUTION]
 > **Working with code is really restricted with license.** Check it before doing anything!
