@@ -1,6 +1,6 @@
 # License for AurorOS
 
-[See original license](https://github.com/Interpuce/AurorOS/blob/docs/licenses/pl-PL.md)
+[See original license](https://github.com/Interpuce/AurorOS/blob/main/docs/licenses/pl-PL.md)
 
 ## Initial provisions
 
