@@ -16,8 +16,14 @@
 
 3. Users may not in any way send or own pieces of source code outside of the GitHub repository.
 
-4. The only persons to whom these conditions do not apply are the Interpuce Team creating the system.
+4. The user can download the OS source code to his computer, but only for:
+    - compiling beta builds
+    - using AurorOS debugger
+
+5. The only persons to whom these conditions do not apply are the Interpuce Team creating the system.
 
 ## Using the software
 
 1. You may not use this system for any purpose prohibited by law in your country.
+
+2. You may not use this system to create any viruses and Potentially Unwanted Programs (PUP).
