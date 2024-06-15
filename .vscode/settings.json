@@ -1,0 +1,14 @@
+{
+    "files.exclude": {
+        // Exclude .github because no one needs it
+        "**/.github": true,
+
+        // Exclude .vscode because we can make changes to them by Ctrl + ,
+        "**/.vscode": true
+    },
+    "files.autoSave": "onFocusChange",
+    "editor.fontSize": 14,
+    "editor.fontFamily": "Consolas, 'Courier New', monospace",
+    "editor.tabSize": 4,
+    "editor.wordWrap": "on"
+}
