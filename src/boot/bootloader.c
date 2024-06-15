@@ -1,17 +1,14 @@
-void print_string(const char* str) {
-    while (*str) {
-        __asm__ volatile (
-            "mov ah, 0x0E;"
-            "mov al, %[char];"
-            "int 0x10"
-            :
-            : [char] "r" (*str)
-        );
-        str++;
-    }
-}
+// ======================================================================
+//                           AurorOS Bootloader
+// ======================================================================
+
+#include <stdbool.h>
+#include <../console/api.c>
 
 void stage2_main() {
     print_string("Hello from C bootloader!\r\n");
+
+    writeError("This is an error message.\r\n");
+
     while (1);
 }

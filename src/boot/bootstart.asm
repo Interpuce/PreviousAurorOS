@@ -1,3 +1,7 @@
+; ======================================================================
+;                           AurorOS Bootloader
+; ======================================================================
+
 BITS 16
 ORG 0x7C00
 
@@ -11,7 +15,7 @@ start:
     mov sp, 0x7C00
     sti
 
-    ; Jump to Stage 2 code
+    ; Load stage 2 code (C program) at 0x1000
     call load_stage2
 
 hang:
