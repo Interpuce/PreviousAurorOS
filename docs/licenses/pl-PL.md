@@ -17,8 +17,8 @@
 3. Użytkownikom nie wolno w żaden sposób wysyłać ani posiadać fragmentów kodu źródłowego poza repozytorium GitHub.
 
 4. Użytkownik może pobrać na swój komputer kod źródłowy systemu operacyjnego, ale wyłącznie w celu:
-  - kompilowania wersji beta
-  - kompilowania debugera AurorOS
+    - kompilowania wersji beta
+    - kompilowania debugera AurorOS
 
 5. Jedynymi osobami, których niniejsze warunki nie dotyczą, jest Interpuce Team tworzący system.
 
