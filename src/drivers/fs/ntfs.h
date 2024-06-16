@@ -11,58 +11,73 @@
 #include <stdlib.h>
 #include <string.h>
 
-// NTFS filesystem structure
-typedef struct {
-    ntfs_boot_sector_t boot_sector;
-    uint64_t mft_start; // Starting sector of MFT
-} ntfs_fs_t;
+// Max number of NTFS devices
+#define MAX_NTFS_DEVICES 32
 
-static ntfs_fs_t *ntfs_fs = NULL;
+static ntfs_device_t ntfs_devices[MAX_NTFS_DEVICES];
+static int ntfs_device_count = 0;
+
+// Function to find a device by its path
+static ntfs_device_t* find_device(const char *device) {
+    for (int i = 0; i < ntfs_device_count; i++) {
+        if (strcmp(ntfs_devices[i].device_path, device) == 0) {
+            return &ntfs_devices[i];
+        }
+    }
+    return NULL;
+}
 
 // Function to mount the NTFS filesystem
 int ntfs_mount(const char *device) {
-    ntfs_fs = (ntfs_fs_t *)malloc(sizeof(ntfs_fs_t));
-    if (!ntfs_fs) {
-        return -1;
+    if (ntfs_device_count >= MAX_NTFS_DEVICES) {
+        return -1; // Maximum number of devices reached
+    }
+
+    ntfs_device_t *new_device = &ntfs_devices[ntfs_device_count];
+    new_device->device_path = strdup(device);
+    if (!new_device->device_path) {
+        return -1; // Memory allocation failure
     }
 
     // Read the boot sector from the device
-    if (ntfs_read_sector(device, 0, (uint8_t *)&ntfs_fs->boot_sector, sizeof(ntfs_boot_sector_t)) != 0) {
-        free(ntfs_fs);
-        ntfs_fs = NULL;
-        return -1;
+    if (ntfs_read_sector(device, 0, (uint8_t *)&new_device->boot_sector, sizeof(ntfs_boot_sector_t)) != 0) {
+        free(new_device->device_path);
+        return -1; // Error reading boot sector
     }
 
     // Check the validity of the NTFS boot sector
-    if (ntfs_fs->boot_sector.end_of_sector_marker != 0xAA55) {
-        free(ntfs_fs);
-        ntfs_fs = NULL;
-        return -1;
+    if (new_device->boot_sector.end_of_sector_marker != 0xAA55) {
+        free(new_device->device_path);
+        return -1; // Invalid boot sector
     }
 
-    ntfs_fs->mft_start = ntfs_fs->boot_sector.mft_cluster * ntfs_fs->boot_sector.sectors_per_cluster;
+    new_device->mft_start = new_device->boot_sector.mft_cluster * new_device->boot_sector.sectors_per_cluster;
+    ntfs_device_count++;
     return 0; // Mounting successful
 }
 
 // Function to unmount the NTFS filesystem
-int ntfs_unmount(void) {
-    if (ntfs_fs) {
-        free(ntfs_fs);
-        ntfs_fs = NULL;
-        return 0; // Unmounting successful
+int ntfs_unmount(const char *device) {
+    ntfs_device_t *device_to_remove = find_device(device);
+    if (!device_to_remove) {
+        return -1; // Device not found
     }
-    return -1; // NTFS was not mounted
+
+    free(device_to_remove->device_path);
+    *device_to_remove = ntfs_devices[--ntfs_device_count];
+    return 0; // Unmounting successful
 }
 
 // Function to read an MFT entry
-int ntfs_read_mft_entry(uint64_t entry_number, ntfs_mft_entry_t *mft_entry) {
+int ntfs_read_mft_entry(const char *device, uint64_t entry_number, ntfs_mft_entry_t *mft_entry) {
+    ntfs_device_t *ntfs_fs = find_device(device);
     if (!ntfs_fs) {
-        return -1; // NTFS is not mounted
+        return -1; // Device not mounted
     }
 
     uint64_t sector = ntfs_fs->mft_start + (entry_number * sizeof(ntfs_mft_entry_t)) / 512;
 
-    if (ntfs_read_sector("device", sector, (uint8_t *)mft_entry, sizeof(ntfs_mft_entry_t)) != 0) {
+    if (ntfs_read_sector(device, sector, (uint8_t *)mft_entry, sizeof(ntfs_mft_entry_t)) != 0) {
         return -1; // Error reading MFT entry
     }
 
@@ -88,14 +103,15 @@ int ntfs_find_attribute(ntfs_mft_entry_t *mft_entry, uint32_t type, ntfs_attribu
 }
 
 // Function to read a file from the NTFS filesystem
-int ntfs_read_file(const char *path, void *buffer, size_t size) {
+int ntfs_read_file(const char *device, const char *path, void *buffer, size_t size) {
+    ntfs_device_t *ntfs_fs = find_device(device);
     if (!ntfs_fs) {
         return -1; // NTFS is not mounted
     }
 
     // Locate the file in the MFT (simplified for root directory entry 0)
     ntfs_mft_entry_t mft_entry;
-    if (ntfs_read_mft_entry(0, &mft_entry) != 0) {
+    if (ntfs_read_mft_entry(device, 0, &mft_entry) != 0) {
         return -1; // Error reading MFT entry
     }
 
@@ -161,7 +177,8 @@ int ntfs_write_sector(const char *device, uint64_t sector, const uint8_t *buffer
 }
 
 // Function to create a new file
-int ntfs_create_file(const char *filename) {
+int ntfs_create_file(const char *device, const char *filename) {
+    ntfs_device_t *ntfs_fs = find_device(device);
     if (!ntfs_fs) {
         return -1; // NTFS is not mounted
     }
@@ -186,7 +203,7 @@ int ntfs_create_file(const char *filename) {
 
     uint64_t sector = ntfs_fs->mft_start + (free_entry * sizeof(ntfs_mft_entry_t)) / 512;
 
-    if (ntfs_write_sector("device", sector, buffer, sizeof(buffer)) != 0) {
+    if (ntfs_write_sector(device, sector, buffer, sizeof(buffer)) != 0) {
         return -1; // Error writing MFT entry
     }
 
@@ -194,7 +211,8 @@ int ntfs_create_file(const char *filename) {
 }
 
 // Function to delete a file
-int ntfs_delete_file(uint64_t entry_number) {
+int ntfs_delete_file(const char *device, uint64_t entry_number) {
+    ntfs_device_t *ntfs_fs = find_device(device);
     if (!ntfs_fs) {
         return -1; // NTFS is not mounted
     }
@@ -203,13 +221,13 @@ int ntfs_delete_file(uint64_t entry_number) {
 
     uint64_t sector = ntfs_fs->mft_start + (entry_number * sizeof(ntfs_mft_entry_t)) / 512;
 
-    if (ntfs_read_sector("device", sector, (uint8_t *)&mft_entry, sizeof(ntfs_mft_entry_t)) != 0) {
+    if (ntfs_read_sector(device, sector, (uint8_t *)&mft_entry, sizeof(ntfs_mft_entry_t)) != 0) {
         return -1; // Error reading MFT entry
     }
 
     mft_entry.signature = 0x0; // Mark as free
 
-    if (ntfs_write_sector("device", sector, (uint8_t *)&mft_entry, sizeof(ntfs_mft_entry_t)) != 0) {
+    if (ntfs_write_sector(device, sector, (uint8_t *)&mft_entry, sizeof(ntfs_mft_entry_t)) != 0) {
         return -1; // Error writing MFT entry
     }
 
@@ -217,14 +235,15 @@ int ntfs_delete_file(uint64_t entry_number) {
 }
 
 // Function to read a directory
-int ntfs_read_directory(const char *path, void *buffer, size_t size) {
+int ntfs_read_directory(const char *device, const char *path, void *buffer, size_t size) {
+    ntfs_device_t *ntfs_fs = find_device(device);
     if (!ntfs_fs) {
         return -1; // NTFS is not mounted
     }
 
     // Locate the directory in the MFT (simplified for root directory entry 0)
     ntfs_mft_entry_t mft_entry;
-    if (ntfs_read_mft_entry(0, &mft_entry) != 0) {
+    if (ntfs_read_mft_entry(device, 0, &mft_entry) != 0) {
         return -1; // Error reading MFT entry
     }
 
