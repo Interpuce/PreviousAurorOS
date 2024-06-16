@@ -19,6 +19,18 @@ int execute_command(const char *command, char *args[]) {
 
     // Execute command based on command and args
     if (strcmp(command, "help") == 0) {
+        write_msg("============= AurorOS Help =============\n")
+        write_msg("         # help - this list\n")
+        write_msg("       # echo - display any text\n")
+        write_msg("========================================\n")
+    } else if (strcmp(command, "echo") == 0) {
+        for (int i = 0; args[i] != NULL; i++) {
+            write_msg(args[i]);
+            if (args[i+1] != NULL) {
+                write_msg(" ");
+            }
+        }
+        write_msg("\n");
     } else {
         write_error("Type a valid command!\n");
         return 1;
