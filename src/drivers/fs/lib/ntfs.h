@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
+// NTFS boot sector structure
 typedef struct {
     uint8_t  jump[3];
     char     oem_id[8];
@@ -32,6 +33,36 @@ typedef struct {
     uint16_t end_of_sector_marker;
 } __attribute__((packed)) ntfs_boot_sector_t;
 
+// NTFS MFT entry structure
+typedef struct {
+    uint32_t signature;
+    uint16_t offset_of_fixup_array;
+    uint16_t number_of_entries_in_fixup_array;
+    uint64_t log_file_sequence_number;
+    uint16_t sequence_number;
+    uint16_t link_count;
+    uint16_t offset_to_first_attribute;
+    uint16_t flags;
+    uint32_t used_size;
+    uint32_t allocated_size;
+    uint64_t file_reference_to_base_record;
+    uint16_t next_attribute_id;
+} __attribute__((packed)) ntfs_mft_entry_t;
+
+// NTFS attribute structure
+typedef struct {
+    uint32_t type;
+    uint32_t length;
+    uint8_t non_resident;
+    uint8_t name_length;
+    uint16_t name_offset;
+    uint16_t flags;
+    uint16_t attribute_id;
+} __attribute__((packed)) ntfs_attribute_t;
+
+// Function declarations
 int ntfs_mount(const char *device);
 int ntfs_unmount(void);
 int ntfs_read_file(const char *path, void *buffer, size_t size);
+
+#endif
