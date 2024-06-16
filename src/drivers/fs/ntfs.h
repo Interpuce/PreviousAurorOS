@@ -11,9 +11,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Function to read a sector from the disk
-int ntfs_read_sector(const char *device, uint64_t sector, uint8_t *buffer, size_t size);
-
 // NTFS filesystem structure
 typedef struct {
     ntfs_boot_sector_t boot_sector;
