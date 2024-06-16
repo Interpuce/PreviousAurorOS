@@ -2,6 +2,10 @@
 //                           AurorOS Bootloader
 // ======================================================================
 
+// => The initial API for console writing.
+//       This API is used to write text on the console, setting text color
+//       and for displaying errors, warnings and notices
+
 #include <stdbool.h>
 
 // Prints a string to the console
@@ -31,15 +35,15 @@ void set_text_color(unsigned char color) {
 }
 
 // Writes an error line to the console
-void writeError(const char* message) {
+void write_error(const char* message) {
     set_text_color(0x04); // Red color for error
     print_string("[Error] ");
-    set_text_color(0x07);
+    set_text_color(0x07); // Reset to default color
     print_string(message);
 }
 
 // Writes a warning line to the console
-void writeWarn(const char* message) {
+void write_warn(const char* message) {
     set_text_color(0x0E); // Yellow color for warning
     print_string("[Warning] ");
     set_text_color(0x07); // Reset to default color
@@ -47,7 +51,7 @@ void writeWarn(const char* message) {
 }
 
 // Writes a notice line to the console
-void writeNotice(const char* message) {
+void write_notice(const char* message) {
     set_text_color(0x03); // Cyan color for notice
     print_string("[Notice] ");
     set_text_color(0x07); // Reset to default color
@@ -55,9 +59,17 @@ void writeNotice(const char* message) {
 }
 
 // Writes an OK line to the console
-void writeOK(const char* message) {
+void write_OK(const char* message) {
     set_text_color(0x02); // Green color for OK
     print_string("[OK] ");
+    set_text_color(0x07); // Reset to default color
+    print_string(message);
+}
+
+// Writes a skipped line to the console
+void write_skipped(const char* message) {
+    set_text_color(0x0E); // Yellow color for skipped
+    print_string("[Skipped] ");
     set_text_color(0x07); // Reset to default color
     print_string(message);
 }
