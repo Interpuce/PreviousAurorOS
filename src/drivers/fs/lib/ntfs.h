@@ -64,5 +64,9 @@ typedef struct {
 int ntfs_mount(const char *device);
 int ntfs_unmount(void);
 int ntfs_read_file(const char *path, void *buffer, size_t size);
+int ntfs_write_sector(const char *device, uint64_t sector, const uint8_t *buffer, size_t size);
+int ntfs_create_file(const char *filename);
+int ntfs_delete_file(uint64_t entry_number);
+int ntfs_read_directory(const char *path, void *buffer, size_t size);
 
 #endif

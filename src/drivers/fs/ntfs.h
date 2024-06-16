@@ -141,3 +141,111 @@ int ntfs_read_sector(const char *device, uint64_t sector, uint8_t *buffer, size_
     fclose(f);
     return 0; // Sector read successfully
 }
+
+// Function to write a sector to the disk
+int ntfs_write_sector(const char *device, uint64_t sector, const uint8_t *buffer, size_t size) {
+    FILE *f = fopen(device, "rb+");
+    if (!f) {
+        return -1; // Error opening device
+    }
+
+    if (fseek(f, sector * 512, SEEK_SET) != 0) {
+        fclose(f);
+        return -1; // Error seeking to sector
+    }
+
+    if (fwrite(buffer, 1, size, f) != size) {
+        fclose(f);
+        return -1; // Error writing sector
+    }
+
+    fclose(f);
+    return 0; // Sector written successfully
+}
+
+// Function to create a new file
+int ntfs_create_file(const char *filename) {
+    if (!ntfs_fs) {
+        return -1; // NTFS is not mounted
+    }
+
+    // Locate the first free MFT entry (this is a simplified example)
+    uint64_t free_entry = 1; // Assume entry 1 is free for simplicity
+
+    ntfs_mft_entry_t mft_entry = {0};
+    mft_entry.signature = 0x454C4946; // "FILE" signature
+    mft_entry.offset_to_first_attribute = sizeof(ntfs_mft_entry_t);
+    mft_entry.used_size = sizeof(ntfs_mft_entry_t) + sizeof(ntfs_attribute_t);
+    mft_entry.allocated_size = sizeof(ntfs_mft_entry_t) + sizeof(ntfs_attribute_t);
+
+    ntfs_attribute_t data_attr = {0};
+    data_attr.type = 0x80; // $DATA attribute
+    data_attr.length = sizeof(ntfs_attribute_t);
+    data_attr.non_resident = 0;
+
+    uint8_t buffer[512] = {0};
+    memcpy(buffer, &mft_entry, sizeof(ntfs_mft_entry_t));
+    memcpy(buffer + sizeof(ntfs_mft_entry_t), &data_attr, sizeof(ntfs_attribute_t));
+
+    uint64_t sector = ntfs_fs->mft_start + (free_entry * sizeof(ntfs_mft_entry_t)) / 512;
+
+    if (ntfs_write_sector("device", sector, buffer, sizeof(buffer)) != 0) {
+        return -1; // Error writing MFT entry
+    }
+
+    return 0; // File created successfully
+}
+
+// Function to delete a file
+int ntfs_delete_file(uint64_t entry_number) {
+    if (!ntfs_fs) {
+        return -1; // NTFS is not mounted
+    }
+
+    ntfs_mft_entry_t mft_entry = {0};
+
+    uint64_t sector = ntfs_fs->mft_start + (entry_number * sizeof(ntfs_mft_entry_t)) / 512;
+
+    if (ntfs_read_sector("device", sector, (uint8_t *)&mft_entry, sizeof(ntfs_mft_entry_t)) != 0) {
+        return -1; // Error reading MFT entry
+    }
+
+    mft_entry.signature = 0x0; // Mark as free
+
+    if (ntfs_write_sector("device", sector, (uint8_t *)&mft_entry, sizeof(ntfs_mft_entry_t)) != 0) {
+        return -1; // Error writing MFT entry
+    }
+
+    return 0; // File deleted successfully
+}
+
+// Function to read a directory
+int ntfs_read_directory(const char *path, void *buffer, size_t size) {
+    if (!ntfs_fs) {
+        return -1; // NTFS is not mounted
+    }
+
+    // Locate the directory in the MFT (simplified for root directory entry 0)
+    ntfs_mft_entry_t mft_entry;
+    if (ntfs_read_mft_entry(0, &mft_entry) != 0) {
+        return -1; // Error reading MFT entry
+    }
+
+    // Find the $INDEX_ROOT attribute
+    ntfs_attribute_t *index_root_attr;
+    if (ntfs_find_attribute(&mft_entry, 0x90, &index_root_attr) != 0) {
+        return -1; // Index root attribute not found
+    }
+
+    uint8_t *data = (uint8_t *)index_root_attr + index_root_attr->name_offset;
+    if (index_root_attr->non_resident) {
+        return -1; // Non-resident attributes not handled in this example
+    }
+
+    if (index_root_attr->length > size) {
+        return -1; // Buffer size is too small
+    }
+
+    memcpy(buffer, data, index_root_attr->length);
+    return index_root_attr->length; // Return the number of bytes read
+}
