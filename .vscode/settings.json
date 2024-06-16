@@ -11,5 +11,6 @@
     "editor.fontFamily": "Consolas, 'Courier New', monospace",
     "editor.tabSize": 4,
     "editor.wordWrap": "on",
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "explorer.compactFolders": false
 }
