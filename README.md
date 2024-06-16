@@ -6,3 +6,6 @@ Here are the developed by Interpuce Team AurorOS source code basically for the p
 
 > [!CAUTION]
 > **Working with code is really restricted with license.** Check it before doing anything! It is NOT the joke.
+
+See documentation here:
+- [Terminal documentation](https://github.com/Interpuce/AurorOS/blob/main/docs/features/terminal.md)
