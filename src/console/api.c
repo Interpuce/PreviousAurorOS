@@ -30,13 +30,34 @@ void set_text_color(unsigned char color) {
     );
 }
 
-// Writes a error line to the console
+// Writes an error line to the console
 void writeError(const char* message) {
-    set_text_color(0x04);
-
+    set_text_color(0x04); // Red color for error
     print_string("[Error] ");
-
     set_text_color(0x07);
+    print_string(message);
+}
 
+// Writes a warning line to the console
+void writeWarn(const char* message) {
+    set_text_color(0x0E); // Yellow color for warning
+    print_string("[Warning] ");
+    set_text_color(0x07); // Reset to default color
+    print_string(message);
+}
+
+// Writes a notice line to the console
+void writeNotice(const char* message) {
+    set_text_color(0x03); // Cyan color for notice
+    print_string("[Notice] ");
+    set_text_color(0x07); // Reset to default color
+    print_string(message);
+}
+
+// Writes an OK line to the console
+void writeOK(const char* message) {
+    set_text_color(0x02); // Green color for OK
+    print_string("[OK] ");
+    set_text_color(0x07); // Reset to default color
     print_string(message);
 }
