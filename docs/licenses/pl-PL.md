@@ -6,7 +6,7 @@
 
 1. Interpuce Team nie ceduje własności projektu na osobę korzystającą/współtworzącą oprogramowanie, lecz udziela tej osobie licencji na korzystanie z niniejszego systemu operacyjnego zgodnie z niniejszymi warunkami.
 
-2. Interpuce Team zastrzega sobie prawo do zmiany niniejszej licencji w dowolnym momencie po otrzymaniu informacji za pośrednictwem oficjalnych kanałów komunikacji.
+2. Interpuce Team zastrzega sobie prawo do zmiany niniejszej licencji w dowolnym momencie po poinformowaniu za pośrednictwem oficjalnych kanałów komunikacji.
 
 ## Używanie kodu źródłowego
 
