@@ -12,7 +12,7 @@
 #include <string.h>
 
 // Max number of NTFS devices
-#define MAX_NTFS_DEVICES 16
+#define MAX_NTFS_DEVICES 128
 
 static ntfs_device_t ntfs_devices[MAX_NTFS_DEVICES];
 static int ntfs_device_count = 0;
