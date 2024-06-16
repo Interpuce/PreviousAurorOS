@@ -34,6 +34,12 @@ void set_text_color(unsigned char color) {
     );
 }
 
+// Writes an message
+void write_msg(const char* message) {
+    set_text_color(0x07); // Reset to default color
+    print_string(message);
+}
+
 // Writes an error line to the console
 void write_error(const char* message) {
     set_text_color(0x04); // Red color for error
