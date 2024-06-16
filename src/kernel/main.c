@@ -9,6 +9,9 @@
 // Include C basics
 #include <string.h>
 
+// Get kernel functions
+#include "functions.h"
+
 // Get console API
 #include "../console/api.h"
 
@@ -22,8 +25,7 @@
 set_text_color(0x07);
 
 // Write AurorOS version
-print_string("AurorOS ")
-print_line("1.0.0")
+print_version_line();
 
 // Say that kernel parts has been included
 write_OK("Loaded: Console API\n");
