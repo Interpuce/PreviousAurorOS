@@ -12,7 +12,7 @@
 #include <string.h>
 
 // Max number of NTFS devices
-#define MAX_NTFS_DEVICES 32
+#define MAX_NTFS_DEVICES 16
 
 static ntfs_device_t ntfs_devices[MAX_NTFS_DEVICES];
 static int ntfs_device_count = 0;
@@ -134,46 +134,62 @@ int ntfs_read_file(const char *device, const char *path, void *buffer, size_t si
     return data_attr->length; // Return the number of bytes read
 }
 
-// Function to read a sector from the disk
-int ntfs_read_sector(const char *device, uint64_t sector, uint8_t *buffer, size_t size) {
-    FILE *f = fopen(device, "rb");
-    if (!f) {
-        return -1; // Error opening device
+// Function to write a file to the NTFS filesystem
+int ntfs_write_file(const char *device, const char *path, const void *buffer, size_t size) {
+    ntfs_device_t *ntfs_fs = find_device(device);
+    if (!ntfs_fs) {
+        return -1; // NTFS is not mounted
     }
 
-    if (fseek(f, sector * 512, SEEK_SET) != 0) {
-        fclose(f);
-        return -1; // Error seeking to sector
+    // Locate the file in the MFT (simplified for root directory entry 0)
+    ntfs_mft_entry_t mft_entry;
+    if (ntfs_read_mft_entry(device, 0, &mft_entry) != 0) {
+        return -1; // Error reading MFT entry
     }
 
-    if (fread(buffer, 1, size, f) != size) {
-        fclose(f);
-        return -1; // Error reading sector
+    // Find the $DATA attribute
+    ntfs_attribute_t *data_attr;
+    if (ntfs_find_attribute(&mft_entry, 0x80, &data_attr) != 0) {
+        return -1; // Data attribute not found
     }
 
-    fclose(f);
-    return 0; // Sector read successfully
+    uint8_t *data = (uint8_t *)data_attr + data_attr->name_offset;
+    if (data_attr->non_resident) {
+        return -1; // Non-resident attributes not handled in this example
+    }
+
+    if (size > data_attr->length) {
+        return -1; // Buffer size is too large
+    }
+
+    memcpy(data, buffer, size);
+
+    uint64_t sector = ntfs_fs->mft_start + (0 * sizeof(ntfs_mft_entry_t)) / 512;
+    if (ntfs_write_sector(device, sector, (uint8_t *)&mft_entry, sizeof(ntfs_mft_entry_t)) != 0) {
+        return -1; // Error writing MFT entry
+    }
+
+    return 0; // File written successfully
 }
 
-// Function to write a sector to the disk
-int ntfs_write_sector(const char *device, uint64_t sector, const uint8_t *buffer, size_t size) {
-    FILE *f = fopen(device, "rb+");
-    if (!f) {
-        return -1; // Error opening device
+// Function to locate the first free MFT entry
+int find_free_mft_entry(const char *device, uint64_t *entry_number) {
+    ntfs_device_t *ntfs_fs = find_device(device);
+    if (!ntfs_fs) {
+        return -1; // NTFS is not mounted
     }
 
-    if (fseek(f, sector * 512, SEEK_SET) != 0) {
-        fclose(f);
-        return -1; // Error seeking to sector
-    }
+    ntfs_mft_entry_t mft_entry;
+    uint64_t i = 0;
 
-    if (fwrite(buffer, 1, size, f) != size) {
-        fclose(f);
-        return -1; // Error writing sector
+    while (ntfs_read_mft_entry(device, i, &mft_entry) == 0) {
+        if (mft_entry.signature != 0x454C4946) { // Check for "FILE" signature
+            *entry_number = i;
+            return 0; // Free entry found
+        }
+        i++;
     }
-
-    fclose(f);
-    return 0; // Sector written successfully
+    return -1; // No free entry found
 }
 
 // Function to create a new file
@@ -183,8 +199,10 @@ int ntfs_create_file(const char *device, const char *filename) {
         return -1; // NTFS is not mounted
     }
 
-    // Locate the first free MFT entry (this is a simplified example)
-    uint64_t free_entry = 1; // Assume entry 1 is free for simplicity
+    uint64_t free_entry;
+    if (find_free_mft_entry(device, &free_entry) != 0) {
+        return -1; // No free MFT entry found
+    }
 
     ntfs_mft_entry_t mft_entry = {0};
     mft_entry.signature = 0x454C4946; // "FILE" signature
@@ -264,4 +282,61 @@ int ntfs_read_directory(const char *device, const char *path, void *buffer, size
 
     memcpy(buffer, data, index_root_attr->length);
     return index_root_attr->length; // Return the number of bytes read
+}
+
+// Function to read the metadata of a file
+int ntfs_read_metadata(const char *device, const char *path, ntfs_mft_entry_t *metadata) {
+    ntfs_device_t *ntfs_fs = find_device(device);
+    if (!ntfs_fs) {
+        return -1; // NTFS is not mounted
+    }
+
+    // Locate the file in the MFT (simplified for root directory entry 0)
+    if (ntfs_read_mft_entry(device, 0, metadata) != 0) {
+        return -1; // Error reading MFT entry
+    }
+
+    return 0; // Metadata read successfully
+}
+
+// Function to read a sector from the disk
+int ntfs_read_sector(const char *device, uint64_t sector, uint8_t *buffer, size_t size) {
+    FILE *f = fopen(device, "rb");
+    if (!f) {
+        return -1; // Error opening device
+    }
+
+    if (fseek(f, sector * 512, SEEK_SET) != 0) {
+        fclose(f);
+        return -1; // Error seeking to sector
+    }
+
+    if (fread(buffer, 1, size, f) != size) {
+        fclose(f);
+        return -1; // Error reading sector
+    }
+
+    fclose(f);
+    return 0; // Sector read successfully
+}
+
+// Function to write a sector to the disk
+int ntfs_write_sector(const char *device, uint64_t sector, const uint8_t *buffer, size_t size) {
+    FILE *f = fopen(device, "rb+");
+    if (!f) {
+        return -1; // Error opening device
+    }
+
+    if (fseek(f, sector * 512, SEEK_SET) != 0) {
+        fclose(f);
+        return -1; // Error seeking to sector
+    }
+
+    if (fwrite(buffer, 1, size, f) != size) {
+        fclose(f);
+        return -1; // Error writing sector
+    }
+
+    fclose(f);
+    return 0; // Sector written successfully
 }
