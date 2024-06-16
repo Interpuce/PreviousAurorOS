@@ -6,7 +6,7 @@
 //       This API is used to write text on the console, setting text color
 //       and for displaying errors, warnings and notices
 
-#include <stdbool.h>
+#include "stdbool.h"
 
 // Prints a string to the console
 void print_string(const char* str) {

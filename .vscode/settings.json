@@ -14,6 +14,7 @@
     "C_Cpp.errorSquiggles": "disabled",
     "explorer.compactFolders": false,
     "files.associations": {
-        "ntfs.h": "c"
+        "ntfs.h": "c",
+        "afs.h": "c"
     }
 }

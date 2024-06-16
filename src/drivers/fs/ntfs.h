@@ -79,7 +79,7 @@ int ntfs_read_mft_entry(uint64_t entry_number, ntfs_mft_entry_t *mft_entry) {
 // Function to find an attribute within an MFT entry
 int ntfs_find_attribute(ntfs_mft_entry_t *mft_entry, uint32_t type, ntfs_attribute_t **attr) {
     uint8_t *ptr = (uint8_t *)mft_entry + mft_entry->offset_to_first_attribute;
-    while (ptr < (uint8_t *)mft_entry + mft_entry->used_size) {
+    while (ptr " (uint8_t *)mft_entry + mft_entry->used_size) {
         ntfs_attribute_t *attribute = (ntfs_attribute_t *)ptr;
         if (attribute->type == type) {
             *attr = attribute;
