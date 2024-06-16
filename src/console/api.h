@@ -22,6 +22,12 @@ void print_string(const char* str) {
     }
 }
 
+// Prints a line to the console
+void print_line(const char* str) {
+    print_string(str)
+    print_string("\n")
+}
+
 // Sets up a color
 void set_text_color(unsigned char color) {
     __asm__ volatile (

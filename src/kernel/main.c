@@ -6,6 +6,9 @@
 //       This file is basically an system loading from the kernel
 //       and inplementation of console commands.
 
+// Include C basics
+#include <string.h>
+
 // Get console API
 #include "../console/api.h"
 
@@ -18,7 +21,11 @@
 // Reset to default color
 set_text_color(0x07);
 
+// Write AurorOS version
+print_string("AurorOS ")
+print_line("1.0.0")
+
 // Say that kernel parts has been included
-write_OK("Console API");
-write_OK("AFS driver");
-write_OK("NTFS driver");
+write_OK("Loaded: Console API\n");
+write_OK("Loaded: AFS driver\n");
+write_OK("Loaded: NTFS driver\n");

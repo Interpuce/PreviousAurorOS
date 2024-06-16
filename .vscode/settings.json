@@ -28,6 +28,8 @@
     // Visual Studio Code propably added this automatically
     "files.associations": {
         "ntfs.h": "c",
-        "afs.h": "c"
-    }
+        "afs.h": "c",
+        "api.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
