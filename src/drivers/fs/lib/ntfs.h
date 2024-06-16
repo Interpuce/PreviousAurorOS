@@ -74,5 +74,7 @@ int ntfs_read_file(const char *device, const char *path, void *buffer, size_t si
 int ntfs_create_file(const char *device, const char *filename);
 int ntfs_delete_file(const char *device, uint64_t entry_number);
 int ntfs_read_directory(const char *device, const char *path, void *buffer, size_t size);
+int ntfs_write_file(const char *device, const char *path, const void *buffer, size_t size);
+int ntfs_read_metadata(const char *device, const char *path, ntfs_mft_entry_t *metadata);
 
 #endif
