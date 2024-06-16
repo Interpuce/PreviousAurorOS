@@ -12,5 +12,8 @@
     "editor.tabSize": 4,
     "editor.wordWrap": "on",
     "C_Cpp.errorSquiggles": "disabled",
-    "explorer.compactFolders": false
+    "explorer.compactFolders": false,
+    "files.associations": {
+        "ntfs.h": "c"
+    }
 }
