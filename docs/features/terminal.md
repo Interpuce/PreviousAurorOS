@@ -14,7 +14,7 @@ When you launch AurorOS there are success / error messages. If GUI elements were
 
 In the screen of console mode or in the terminal there will be prompt like this:
 
-```username@computer-name:~\\```
+```username@computer-name:~\```
 
 You can input the commands using the keyboard like this:
 
@@ -50,9 +50,9 @@ You can also use path like `~/Dekstop` to go to `~/Dekstop` (NOT `~/~/Dekstop`):
 ```cd ~\\Dekstop```
 
 > [!WARNING]
-> **The `~` is special character in paths!** This character is used to represent home folder (`C:\\user\\`).
+> **The `~` is special character in paths!** This character is used to represent home folder (`C:\user\`).
 
-You can also use absolute paths like `C:\\AurorOS` or use paths starts with `/` (**which is another special character in paths**) to go to folder from main drive folder.
+You can also use absolute paths like `C:\AurorOS` or use paths starts with `/` (**which is another special character in paths**) to go to folder from main drive folder.
 
 You can go backwards using the `cd ..` command.
 
