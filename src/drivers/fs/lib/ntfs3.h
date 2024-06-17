@@ -33,7 +33,7 @@ typedef struct {
     uint16_t end_of_sector_marker;
 } __attribute__((packed)) ntfs_boot_sector_t;
 
-// NTFS MFT entry structure
+// NTFS MFT entry structurea\
 typedef struct {
     uint32_t signature;
     uint16_t offset_of_fixup_array;

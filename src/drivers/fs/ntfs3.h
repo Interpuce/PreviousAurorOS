@@ -6,7 +6,7 @@
 //       This file is basically an implementation of NTFS filesystem
 //       and provides API calls to read the files, etc.
 
-#include "lib/ntfs.h"
+#include "lib/ntfs3.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

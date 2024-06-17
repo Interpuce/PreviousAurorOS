@@ -11,6 +11,12 @@
 // Import console API
 #include "../console/api.h"
 
+// Get AurorOS filesystem API
+#include "../drivers/fs/afs.h"
+
+// Get NTFS-3 filesystem API
+#include "../drivers/fs/ntfs3.h"
+
 // Defines an AurorOS version
 #define OS_VERSION "1.0.0"
 

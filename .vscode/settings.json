@@ -29,7 +29,8 @@
     "files.associations": {
         "ntfs.h": "c",
         "afs.h": "c",
-        "api.h": "c"
+        "api.h": "c",
+        "ntfs3.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
