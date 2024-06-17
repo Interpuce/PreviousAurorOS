@@ -27,7 +27,7 @@ You can run command as administartor using the `admin` command (like `sudo` in L
 
 ```admin command first_argument second_argument etc```
 
-In AurorOS this command basically asks you for password and makes elevation.
+In AurorOS this command asks you for computer password (basically `root` user password defined in installation).
 
 ### Special terminal characters
 
