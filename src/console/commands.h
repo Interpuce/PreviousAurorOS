@@ -19,10 +19,10 @@ int execute_command(const char *command, char *args[]) {
 
     // Execute command based on command and args
     if (strcmp(command, "help") == 0) {
-        write_line("============= AurorOS Help =============")
-        write_line("         # help - this list")
-        write_line("       # echo - display any text")
-        write_line("========================================")
+        write_line("============= AurorOS Help =============");
+        write_line("         # help - this list");
+        write_line("       # echo - display any text");
+        write_line("========================================");
     } else if (strcmp(command, "echo") == 0) {
         for (int i = 0; args[i] != NULL; i++) {
             write_msg(args[i]);
