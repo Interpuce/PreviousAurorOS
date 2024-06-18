@@ -29,63 +29,67 @@ static ntfs_device_t* find_device(const char *device) {
 
 // Function to mount the NTFS filesystem
 int ntfs_mount(const char *device) {
+    if (find_device(device)) {
+        return NTFS_ERROR_DEVICE_IN_USE; // Device is already mounted
+    }
+
     if (ntfs_device_count >= MAX_NTFS_DEVICES) {
-        return -1; // Maximum number of devices reached
+        return NTFS_ERROR_MAX_DEVICES_REACHED; // Maximum number of devices reached
     }
 
     ntfs_device_t *new_device = &ntfs_devices[ntfs_device_count];
     new_device->device_path = strdup(device);
     if (!new_device->device_path) {
-        return -1; // Memory allocation failure
+        return NTFS_ERROR_MEMORY_ALLOCATION_FAILURE; // Memory allocation failure
     }
 
     // Read the boot sector from the device
     if (ntfs_read_sector(device, 0, (uint8_t *)&new_device->boot_sector, sizeof(ntfs_boot_sector_t)) != 0) {
         free(new_device->device_path);
-        return -1; // Error reading boot sector
+        return NTFS_ERROR_READING_BOOT_SECTOR; // Error reading boot sector
     }
 
     // Check the validity of the NTFS boot sector
     if (new_device->boot_sector.end_of_sector_marker != 0xAA55) {
         free(new_device->device_path);
-        return -1; // Invalid boot sector
+        return NTFS_ERROR_INVALID_BOOT_SECTOR; // Invalid boot sector
     }
 
     new_device->mft_start = new_device->boot_sector.mft_cluster * new_device->boot_sector.sectors_per_cluster;
     ntfs_device_count++;
-    return 0; // Mounting successful
+    return NTFS_SUCCESS; // Mounting successful
 }
 
 // Function to unmount the NTFS filesystem
 int ntfs_unmount(const char *device) {
     ntfs_device_t *device_to_remove = find_device(device);
     if (!device_to_remove) {
-        return -1; // Device not found
+        return NTFS_ERROR_DEVICE_NOT_FOUND; // Device not found
     }
 
     free(device_to_remove->device_path);
     *device_to_remove = ntfs_devices[--ntfs_device_count];
-    return 0; // Unmounting successful
+    return NTFS_SUCCESS; // Unmounting successful
 }
 
 // Function to read an MFT entry
 int ntfs_read_mft_entry(const char *device, uint64_t entry_number, ntfs_mft_entry_t *mft_entry) {
     ntfs_device_t *ntfs_fs = find_device(device);
     if (!ntfs_fs) {
-        return -1; // Device not mounted
+        return NTFS_ERROR_DEVICE_NOT_FOUND; // Device not mounted
     }
 
     uint64_t sector = ntfs_fs->mft_start + (entry_number * sizeof(ntfs_mft_entry_t)) / 512;
 
     if (ntfs_read_sector(device, sector, (uint8_t *)mft_entry, sizeof(ntfs_mft_entry_t)) != 0) {
-        return -1; // Error reading MFT entry
+        return NTFS_ERROR_READING_SECTOR; // Error reading MFT entry
     }
 
     if (mft_entry->signature != 0x454C4946) { // Check for "FILE" signature
-        return -1; // Invalid MFT entry
+        return NTFS_ERROR_INVALID_MFT_ENTRY; // Invalid MFT entry
     }
 
-    return 0; // MFT entry read successfully
+    return NTFS_SUCCESS; // MFT entry read successfully
 }
 
 // Function to find an attribute within an MFT entry
