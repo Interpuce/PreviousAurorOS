@@ -26,6 +26,7 @@ struct afs_file {
     uint8_t *data;
     char *filename;
     struct afs_file *next;
+    int in_use;
 };
 
 struct afs_directory {
@@ -34,6 +35,7 @@ struct afs_directory {
     size_t num_children;
     char *dirname;
     struct afs_directory *next;
+    int in_use;
 };
 
 struct afs_disk {
@@ -101,6 +103,7 @@ int afs_create_file(const char *disk_name, const char *filename) {
     new_file->inode.modified_timestamp = new_file->inode.created_timestamp;
     new_file->data = NULL;
     new_file->next = disk->file_list;
+    new_file->in_use = 0;  // Initially the file is not in use
     disk->file_list = new_file;
 
     return 0;
@@ -113,6 +116,7 @@ int afs_delete_file(const char *disk_name, const char *filename) {
     struct afs_file **current = &disk->file_list;
     while (*current) {
         if (strcmp((*current)->filename, filename) == 0) {
+            if ((*current)->in_use) return -2; // File is in use
             struct afs_file *to_delete = *current;
             *current = (*current)->next;
             free(to_delete->filename);
@@ -132,6 +136,7 @@ struct afs_file *afs_open_file(const char *disk_name, const char *filename) {
     struct afs_file *current = disk->file_list;
     while (current) {
         if (strcmp(current->filename, filename) == 0) {
+            current->in_use = 1;  // Mark file as in use
             return current;
         }
         current = current->next;
@@ -158,7 +163,9 @@ int afs_write_file(struct afs_file *file, const void *buffer, size_t count) {
 }
 
 void afs_close_file(struct afs_file *file) {
-    // For this filesystem, actually nothing needs to be done
+    if (file) {
+        file->in_use = 0;  // Mark file as not in use
+    }
 }
 
 int afs_create_directory(const char *disk_name, const char *dirname) {
@@ -189,6 +196,7 @@ int afs_create_directory(const char *disk_name, const char *dirname) {
     new_directory->children = NULL;
     new_directory->num_children = 0;
     new_directory->next = disk->directory_list;
+    new_directory->in_use = 0;  // Initially the directory is not in use
     disk->directory_list = new_directory;
 
     return 0;
@@ -201,6 +209,7 @@ int afs_delete_directory(const char *disk_name, const char *dirname) {
     struct afs_directory **current = &disk->directory_list;
     while (*current) {
         if (strcmp((*current)->dirname, dirname) == 0) {
+            if ((*current)->in_use) return -2; // Directory is in use
             struct afs_directory *to_delete = *current;
             *current = (*current)->next;
             free(to_delete->dirname);
@@ -264,6 +273,7 @@ int afs_update_metadata(const char *disk_name, const char *name, const struct af
     struct afs_file *file = disk->file_list;
     while (file) {
         if (strcmp(file->filename, name) == 0) {
+            if (file->in_use) return -2; // File is in use
             file->inode = *inode;
             return 0;
         }
@@ -273,6 +283,7 @@ int afs_update_metadata(const char *disk_name, const char *name, const struct af
     struct afs_directory *directory = disk->directory_list;
     while (directory) {
         if (strcmp(directory->dirname, name) == 0) {
+            if (directory->in_use) return -2; // Directory is in use
             directory->inode = *inode;
             return 0;
         }
