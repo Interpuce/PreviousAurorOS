@@ -32,5 +32,7 @@
         "api.h": "c",
         "ntfs3.h": "c"
     },
+
+    // Disable error squiggless because they are useless and they doesn't help
     "C_Cpp.errorSquiggles": "disabled"
 }
