@@ -67,6 +67,19 @@ typedef struct {
     uint64_t mft_start;
 } ntfs_device_t;
 
+// Error codes
+#define NTFS_SUCCESS 0
+#define NTFS_ERROR_MAX_DEVICES_REACHED -1
+#define NTFS_ERROR_MEMORY_ALLOCATION_FAILURE -2
+#define NTFS_ERROR_READING_BOOT_SECTOR -3
+#define NTFS_ERROR_INVALID_BOOT_SECTOR -4
+#define NTFS_ERROR_DEVICE_NOT_FOUND -5
+#define NTFS_ERROR_DEVICE_IN_USE -6
+#define NTFS_ERROR_READING_SECTOR -7
+#define NTFS_ERROR_WRITING_SECTOR -8
+#define NTFS_ERROR_FILE_NOT_FOUND -9
+#define NTFS_ERROR_INVALID_MFT_ENTRY -10
+
 // Function declarations
 int ntfs_mount(const char *device);
 int ntfs_unmount(const char *device);
