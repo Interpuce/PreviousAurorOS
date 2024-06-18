@@ -14,7 +14,7 @@
 
 2. The user can correct the code, but these corrections cannot be found outside the `Github Pull Requests` function, for example on the user's computer.
 
-3. Users may not in any way send or own pieces of source code outside of the GitHub repository.
+3. Users may not in any way send or own pieces of source code outside of the GitHub repository (exceptions in 4 point).
 
 4. The user can download the OS source code to his computer, but only for:
     - compiling beta builds
