@@ -3,8 +3,8 @@
 // ======================================================================
 
 // => The AurorOS filesystem driver.
-//    This file is basically an implementation of the AurorOS filesystem
-//    and provides API calls to read files, etc.
+//      This file is basically an implementation of the AurorOS filesystem
+//      and provides API calls to read files, etc.
 
 #include <stddef.h>
 #include <stdint.h>
