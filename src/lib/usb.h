@@ -1,18 +1,8 @@
 #ifndef USB_DRIVER_H
 #define USB_DRIVER_H
 
-#include <stdint.h>
 #include <stdbool.h>
-
-#define USB_BASE_ADDRESS 0x40080000
-#define USB_CTRL_REG     (*(volatile uint32_t *)(USB_BASE_ADDRESS + 0x00))
-#define USB_STATUS_REG   (*(volatile uint32_t *)(USB_BASE_ADDRESS + 0x04))
-#define USB_INT_ENABLE   (*(volatile uint32_t *)(USB_BASE_ADDRESS + 0x08))
-#define USB_INT_STATUS   (*(volatile uint32_t *)(USB_BASE_ADDRESS + 0x0C))
-#define USB_DATA_REG     (*(volatile uint32_t *)(USB_BASE_ADDRESS + 0x10))
-
-#define USB_CTRL_ENABLE  0x01
-#define USB_CTRL_RESET   0x02
+#include "usb_regs.h"
 
 #define MAX_USB_DEVICES  4
 
@@ -37,5 +27,3 @@ void usb_unregister_device(uint8_t device_address);
 usb_status_t usb_send_data(uint8_t device_address, uint8_t *data, uint16_t length);
 usb_status_t usb_receive_data(uint8_t device_address, uint8_t *data, uint16_t length);
 void usb_handle_interrupt(void);
-
-#endif
