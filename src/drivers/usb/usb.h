@@ -142,34 +142,3 @@ void usb_handle_interrupt(void) {
         // Error
     }
 }
-
-int main() {
-    usb_init();
-    usb_reset();
-
-    usb_device_t *device1 = usb_register_device(1, 1, 64);
-    usb_device_t *device2 = usb_register_device(2, 1, 64);
-
-    if (device1) {
-        uint8_t data_to_send[] = {0x01, 0x02, 0x03, 0x04};
-        usb_send_data(device1->device_address, data_to_send, sizeof(data_to_send));
-        
-        uint8_t data_to_receive[4];
-        usb_receive_data(device1->device_address, data_to_receive, sizeof(data_to_receive));
-    }
-    
-    if (device2) {
-        uint8_t data_to_send2[] = {0x05, 0x06, 0x07, 0x08};
-        usb_send_data(device2->device_address, data_to_send2, sizeof(data_to_send2));
-        
-        uint8_t data_to_receive2[4];
-        usb_receive_data(device2->device_address, data_to_receive2, sizeof(data_to_receive2));
-    }
-
-    usb_unregister_device(1);
-    usb_unregister_device(2);
-
-    usb_handle_interrupt();
-    
-    return 0;
-}
