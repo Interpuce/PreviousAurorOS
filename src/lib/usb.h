@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "usb_regs.h"
 
-#define MAX_USB_DEVICES  4
+#define MAX_USB_DEVICES  256
 
 typedef enum {
     USB_SUCCESS,
