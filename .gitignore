@@ -1,2 +1,5 @@
 # Useless extensions options (because Makefile does this)
 **/.vscode/c_cpp_properties.json
+
+# Compiled AurorOS
+out/
