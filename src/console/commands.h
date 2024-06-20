@@ -15,7 +15,7 @@ int execute_command(const char *command, char *args[]) {
     // Check if command is NULL or empty
     if (command == NULL || command[0] == '\0') {
         write_error("Please enter a command!\n");
-        return 1;
+        return 1; // Return error
     }
 
     // Execute command based on command and args
@@ -36,7 +36,7 @@ int execute_command(const char *command, char *args[]) {
         write_msg("\n");
     } else {
         write_error("Type a valid command!\n");
-        return 1;
+        return 1; // Return error
     }
 
     return 0; // Return success
