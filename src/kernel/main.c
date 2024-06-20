@@ -22,6 +22,4 @@ set_text_color(0x07);
 print_version_line();
 
 // Say that kernel parts has been included
-write_OK("Loaded: Console API\n");
-write_OK("Loaded: AFS driver\n");
-write_OK("Loaded: NTFS driver\n");
+write_OK("Loaded: AurorOS kernel\n");
