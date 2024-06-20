@@ -6,7 +6,7 @@
 //       This API is used to write text on the console, setting text color
 //       and for displaying errors, warnings and notices
 
-#include "stdbool.h"
+#include <stdbool.h>
 
 // Prints a string to the console
 void print_string(const char* str) {
@@ -40,7 +40,7 @@ void set_text_color(unsigned char color) {
     );
 }
 
-// Writes an message
+// Writes a message
 void write_msg(const char* message) {
     set_text_color(0x07); // Reset to default color
     print_string(message);
