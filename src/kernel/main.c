@@ -16,15 +16,6 @@
 // Get console API
 #include "../console/api.h"
 
-// Reset to default color
-set_text_color(0x07);
-
-// Write AurorOS version
-print_version_line();
-
-// Say that kernel parts have been included
-write_OK("Loaded: AurorOS kernel\n");
-
 // Function executes before multitasking cycle
 int system_loop() {
     // Perform system tasks here
@@ -63,25 +54,29 @@ void init_memory_management() {
     write_OK("Initialized: Memory Management\n");
 }
 
-// Function to execute startup tasks
-void execute_startup_tasks() {
-    // Execute any startup tasks or load startup applications
-    write_OK("Executed: Startup Tasks\n");
+int main() {
+    // Reset to default color
+    set_text_color(0x07);
+
+    // Write AurorOS version
+    print_version_line();
+
+    // Say that kernel parts have been included
+    write_OK("Loaded: AurorOS kernel\n");
+
+    // Initialize kernel subsystems
+    init_hardware();
+    init_drivers();
+    init_filesystem();
+    init_memory_management();
+
+    // The main kernel loop
+    while (true) {
+        // Execute system loop
+        system_loop();
+        // Execute multitasking loop
+        multitasking_loop();
+    }
+
+    return 0;
 }
-
-// Initialize kernel subsystems
-init_hardware();
-init_drivers();
-init_filesystem();
-init_memory_management();
-execute_startup_tasks();
-
-// The main kernel loop
-while (true) {
-    // Execute system loop
-    system_loop();
-    // Execute multitasking loop
-    multitasking_loop();
-}
-
-return 0;
