@@ -69,23 +69,19 @@ void execute_startup_tasks() {
     write_OK("Executed: Startup Tasks\n");
 }
 
-// The main kernel function
-int main() {
-    // Initialize kernel subsystems
-    init_hardware();
-    init_drivers();
-    init_filesystem();
-    init_memory_management();
-    execute_startup_tasks();
+// Initialize kernel subsystems
+init_hardware();
+init_drivers();
+init_filesystem();
+init_memory_management();
+execute_startup_tasks();
 
-    // The main kernel loop
-    while (true) {
-        // Execute system loop
-        system_loop();
-
-        // Execute multitasking loop
-        multitasking_loop();
-    }
-
-    return 0; // Kernel should never reach here (simply because true is always positive)
+// The main kernel loop
+while (true) {
+    // Execute system loop
+    system_loop();
+    // Execute multitasking loop
+    multitasking_loop();
 }
+
+return 0;
