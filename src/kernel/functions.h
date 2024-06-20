@@ -12,7 +12,7 @@
 #include "../console/api.h"
 
 // Get AurorOS filesystem API
-#include "../drivers/fs/afs.h"
+#include "../drivers/fs/arfs.h"
 
 // Get NTFS-3 filesystem API
 #include "../drivers/fs/ntfs3.h"

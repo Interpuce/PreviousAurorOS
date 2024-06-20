@@ -12,45 +12,45 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_AFS_DEVICES 1024
+#define MAX_ARFS_DEVICES 1024
 
-struct afs_inode {
+struct arfs_inode {
     uint32_t inode_number;
     uint32_t size;
     uint64_t created_timestamp;
     uint64_t modified_timestamp;
 };
 
-struct afs_file {
-    struct afs_inode inode;
+struct arfs_file {
+    struct arfs_inode inode;
     uint8_t *data;
     char *filename;
-    struct afs_file *next;
+    struct arfs_file *next;
     int in_use;
 };
 
-struct afs_directory {
-    struct afs_inode inode;
-    struct afs_directory *children;
+struct arfs_directory {
+    struct arfs_inode inode;
+    struct arfs_directory *children;
     size_t num_children;
     char *dirname;
-    struct afs_directory *next;
+    struct arfs_directory *next;
     int in_use;
 };
 
-struct afs_disk {
-    struct afs_file *file_list;
-    struct afs_directory *directory_list;
+struct arfs_disk {
+    struct arfs_file *file_list;
+    struct arfs_directory *directory_list;
     uint32_t next_inode_number;
     char *disk_name;
 };
 
-static struct afs_disk disks[MAX_AFS_DEVICES];
+static struct arfs_disk disks[MAX_ARFS_DEVICES];
 static int num_disks = 0;
 
-void afs_init() {
+void arfs_init() {
     // Initialization code here
-    for (int i = 0; i < MAX_AFS_DEVICES; i++) {
+    for (int i = 0; i < MAX_ARFS_DEVICES; i++) {
         disks[i].file_list = NULL;
         disks[i].directory_list = NULL;
         disks[i].next_inode_number = 1;
@@ -59,15 +59,15 @@ void afs_init() {
     num_disks = 0;
 }
 
-int afs_add_disk(const char *disk_name) {
-    if (num_disks >= MAX_AFS_DEVICES) return -1;
+int arfs_add_disk(const char *disk_name) {
+    if (num_disks >= MAX_ARFS_DEVICES) return -1;
     disks[num_disks].disk_name = strdup(disk_name);
     if (!disks[num_disks].disk_name) return -1;
     num_disks++;
     return 0;
 }
 
-struct afs_disk *afs_find_disk(const char *disk_name) {
+struct arfs_disk *arfs_find_disk(const char *disk_name) {
     for (int i = 0; i < num_disks; i++) {
         if (strcmp(disks[i].disk_name, disk_name) == 0) {
             return &disks[i];
@@ -76,11 +76,11 @@ struct afs_disk *afs_find_disk(const char *disk_name) {
     return NULL;
 }
 
-int afs_create_file(const char *disk_name, const char *filename) {
-    struct afs_disk *disk = afs_find_disk(disk_name);
+int arfs_create_file(const char *disk_name, const char *filename) {
+    struct arfs_disk *disk = arfs_find_disk(disk_name);
     if (!disk) return -1;
 
-    struct afs_file *current = disk->file_list;
+    struct arfs_file *current = disk->file_list;
     while (current) {
         if (strcmp(current->filename, filename) == 0) {
             return -1; // File already exists
@@ -88,7 +88,7 @@ int afs_create_file(const char *disk_name, const char *filename) {
         current = current->next;
     }
 
-    struct afs_file *new_file = (struct afs_file *)malloc(sizeof(struct afs_file));
+    struct arfs_file *new_file = (struct arfs_file *)malloc(sizeof(struct arfs_file));
     if (!new_file) return -1;
 
     new_file->filename = strdup(filename);
@@ -109,15 +109,15 @@ int afs_create_file(const char *disk_name, const char *filename) {
     return 0;
 }
 
-int afs_delete_file(const char *disk_name, const char *filename) {
-    struct afs_disk *disk = afs_find_disk(disk_name);
+int arfs_delete_file(const char *disk_name, const char *filename) {
+    struct arfs_disk *disk = arfs_find_disk(disk_name);
     if (!disk) return -1;
 
-    struct afs_file **current = &disk->file_list;
+    struct arfs_file **current = &disk->file_list;
     while (*current) {
         if (strcmp((*current)->filename, filename) == 0) {
             if ((*current)->in_use) return -2; // File is in use
-            struct afs_file *to_delete = *current;
+            struct arfs_file *to_delete = *current;
             *current = (*current)->next;
             free(to_delete->filename);
             free(to_delete->data);
@@ -129,11 +129,11 @@ int afs_delete_file(const char *disk_name, const char *filename) {
     return -1; // File not found
 }
 
-struct afs_file *afs_open_file(const char *disk_name, const char *filename) {
-    struct afs_disk *disk = afs_find_disk(disk_name);
+struct arfs_file *arfs_open_file(const char *disk_name, const char *filename) {
+    struct arfs_disk *disk = arfs_find_disk(disk_name);
     if (!disk) return NULL;
 
-    struct afs_file *current = disk->file_list;
+    struct arfs_file *current = disk->file_list;
     while (current) {
         if (strcmp(current->filename, filename) == 0) {
             current->in_use = 1;  // Mark file as in use
@@ -144,14 +144,14 @@ struct afs_file *afs_open_file(const char *disk_name, const char *filename) {
     return NULL; // File not found
 }
 
-int afs_read_file(struct afs_file *file, void *buffer, size_t count) {
+int arfs_read_file(struct arfs_file *file, void *buffer, size_t count) {
     if (!file || !buffer) return -1;
     if (count > file->inode.size) count = file->inode.size;
     memcpy(buffer, file->data, count);
     return (int)count;
 }
 
-int afs_write_file(struct afs_file *file, const void *buffer, size_t count) {
+int arfs_write_file(struct arfs_file *file, const void *buffer, size_t count) {
     if (!file || !buffer) return -1;
     uint8_t *new_data = (uint8_t *)realloc(file->data, count);
     if (!new_data) return -1;
@@ -162,17 +162,17 @@ int afs_write_file(struct afs_file *file, const void *buffer, size_t count) {
     return (int)count;
 }
 
-void afs_close_file(struct afs_file *file) {
+void arfs_close_file(struct arfs_file *file) {
     if (file) {
         file->in_use = 0;  // Mark file as not in use
     }
 }
 
-int afs_create_directory(const char *disk_name, const char *dirname) {
-    struct afs_disk *disk = afs_find_disk(disk_name);
+int arfs_create_directory(const char *disk_name, const char *dirname) {
+    struct arfs_disk *disk = arfs_find_disk(disk_name);
     if (!disk) return -1;
 
-    struct afs_directory *current = disk->directory_list;
+    struct arfs_directory *current = disk->directory_list;
     while (current) {
         if (strcmp(current->dirname, dirname) == 0) {
             return -1; // Directory already exists
@@ -180,7 +180,7 @@ int afs_create_directory(const char *disk_name, const char *dirname) {
         current = current->next;
     }
 
-    struct afs_directory *new_directory = (struct afs_directory *)malloc(sizeof(struct afs_directory));
+    struct arfs_directory *new_directory = (struct arfs_directory *)malloc(sizeof(struct arfs_directory));
     if (!new_directory) return -1;
 
     new_directory->dirname = strdup(dirname);
@@ -202,15 +202,15 @@ int afs_create_directory(const char *disk_name, const char *dirname) {
     return 0;
 }
 
-int afs_delete_directory(const char *disk_name, const char *dirname) {
-    struct afs_disk *disk = afs_find_disk(disk_name);
+int arfs_delete_directory(const char *disk_name, const char *dirname) {
+    struct arfs_disk *disk = arfs_find_disk(disk_name);
     if (!disk) return -1;
 
-    struct afs_directory **current = &disk->directory_list;
+    struct arfs_directory **current = &disk->directory_list;
     while (*current) {
         if (strcmp((*current)->dirname, dirname) == 0) {
             if ((*current)->in_use) return -2; // Directory is in use
-            struct afs_directory *to_delete = *current;
+            struct arfs_directory *to_delete = *current;
             *current = (*current)->next;
             free(to_delete->dirname);
             free(to_delete->children);
@@ -222,14 +222,14 @@ int afs_delete_directory(const char *disk_name, const char *dirname) {
     return -1; // Directory not found
 }
 
-struct afs_inode *afs_list_directory(const char *disk_name, const char *dirname, size_t *num_entries) {
-    struct afs_disk *disk = afs_find_disk(disk_name);
+struct arfs_inode *arfs_list_directory(const char *disk_name, const char *dirname, size_t *num_entries) {
+    struct arfs_disk *disk = arfs_find_disk(disk_name);
     if (!disk) {
         *num_entries = 0;
         return NULL;
     }
 
-    struct afs_directory *current = disk->directory_list;
+    struct arfs_directory *current = disk->directory_list;
     while (current) {
         if (strcmp(current->dirname, dirname) == 0) {
             *num_entries = current->num_children;
@@ -241,11 +241,11 @@ struct afs_inode *afs_list_directory(const char *disk_name, const char *dirname,
     return NULL; // Directory not found
 }
 
-int afs_get_metadata(const char *disk_name, const char *name, struct afs_inode *inode) {
-    struct afs_disk *disk = afs_find_disk(disk_name);
+int arfs_get_metadata(const char *disk_name, const char *name, struct arfs_inode *inode) {
+    struct arfs_disk *disk = arfs_find_disk(disk_name);
     if (!disk) return -1;
 
-    struct afs_file *file = disk->file_list;
+    struct arfs_file *file = disk->file_list;
     while (file) {
         if (strcmp(file->filename, name) == 0) {
             *inode = file->inode;
@@ -254,7 +254,7 @@ int afs_get_metadata(const char *disk_name, const char *name, struct afs_inode *
         file = file->next;
     }
 
-    struct afs_directory *directory = disk->directory_list;
+    struct arfs_directory *directory = disk->directory_list;
     while (directory) {
         if (strcmp(directory->dirname, name) == 0) {
             *inode = directory->inode;
@@ -266,11 +266,11 @@ int afs_get_metadata(const char *disk_name, const char *name, struct afs_inode *
     return -1; // File or directory not found
 }
 
-int afs_update_metadata(const char *disk_name, const char *name, const struct afs_inode *inode) {
-    struct afs_disk *disk = afs_find_disk(disk_name);
+int arfs_update_metadata(const char *disk_name, const char *name, const struct arfs_inode *inode) {
+    struct arfs_disk *disk = arfs_find_disk(disk_name);
     if (!disk) return -1;
 
-    struct afs_file *file = disk->file_list;
+    struct arfs_file *file = disk->file_list;
     while (file) {
         if (strcmp(file->filename, name) == 0) {
             if (file->in_use) return -2; // File is in use
@@ -280,7 +280,7 @@ int afs_update_metadata(const char *disk_name, const char *name, const struct af
         file = file->next;
     }
 
-    struct afs_directory *directory = disk->directory_list;
+    struct arfs_directory *directory = disk->directory_list;
     while (directory) {
         if (strcmp(directory->dirname, name) == 0) {
             if (directory->in_use) return -2; // Directory is in use
