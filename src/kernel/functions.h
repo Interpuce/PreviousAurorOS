@@ -3,7 +3,7 @@
 // ======================================================================
 
 // => The AurorOS kernel functions.
-//       This file is basically an kernel function inplementation.
+//       This file is basically a kernel function implementation.
 
 // Imports basic features in C
 #include <string.h>
@@ -22,13 +22,13 @@
 
 // Prints an AurorOS version
 void print_version() {
-    write_msg("AurorOS")
-    print_line(OS_VERSION)
+    write_msg("AurorOS ");
+    print_line(OS_VERSION);
 }
 
 // Same as print_version but with line ending
 void print_version_line() {
-    set_text_color(0x07)
-    print_string("AurorOS")
-    print_line(OS_VERSION)
+    set_text_color(0x07);
+    print_string("AurorOS ");
+    print_line(OS_VERSION);
 }
