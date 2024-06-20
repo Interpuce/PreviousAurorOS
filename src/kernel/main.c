@@ -30,28 +30,9 @@ int multitasking_loop() {
     return 0; // No errors
 }
 
-// Function to initialize hardware
-void init_hardware() {
-    // Initialize hardware components
-    write_OK("Initialized: Hardware\n");
-}
-
-// Function to initialize drivers
-void init_drivers() {
-    // Load and initialize drivers
-    write_OK("Initialized: Drivers\n");
-}
-
-// Function to initialize filesystem
-void init_filesystem() {
-    // Initialize filesystem
-    write_OK("Initialized: Filesystem\n");
-}
-
-// Function to initialize memory management
-void init_memory_management() {
-    // Set up memory management
-    write_OK("Initialized: Memory Management\n");
+// Function to initialize kernel subsystems
+int init_memory_management() {
+    return 0;
 }
 
 int main() {
@@ -65,10 +46,7 @@ int main() {
     write_OK("Loaded: AurorOS kernel\n");
 
     // Initialize kernel subsystems
-    init_hardware();
-    init_drivers();
-    init_filesystem();
-    init_memory_management();
+    init();
 
     // The main kernel loop
     while (true) {
