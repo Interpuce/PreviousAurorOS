@@ -31,7 +31,7 @@ int multitasking_loop() {
 }
 
 // Function to initialize kernel subsystems
-int init_memory_management() {
+int init() {
     return 0;
 }
 
