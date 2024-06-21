@@ -80,14 +80,4 @@ typedef struct {
 #define NTFS_ERROR_FILE_NOT_FOUND -9
 #define NTFS_ERROR_INVALID_MFT_ENTRY -10
 
-// Function declarations
-int ntfs_mount(const char *device);
-int ntfs_unmount(const char *device);
-int ntfs_read_file(const char *device, const char *path, void *buffer, size_t size);
-int ntfs_create_file(const char *device, const char *filename);
-int ntfs_delete_file(const char *device, uint64_t entry_number);
-int ntfs_read_directory(const char *device, const char *path, void *buffer, size_t size);
-int ntfs_write_file(const char *device, const char *path, const void *buffer, size_t size);
-int ntfs_read_metadata(const char *device, const char *path, ntfs_mft_entry_t *metadata);
-
 #endif
