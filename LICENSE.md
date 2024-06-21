@@ -19,6 +19,7 @@
 4. The user can download the OS source code to his computer, but only for:
     - compiling beta builds
     - using AurorOS debugger
+    - debug forks of the repo
 
 5. The only persons to whom these conditions do not apply are the Interpuce Team creating the system.
 
