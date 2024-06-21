@@ -4,7 +4,7 @@
 
 ## Postanowienia wstępne
 
-1. Interpuce Team nie nadaje własności projektu na osobę współtworzącą/używającą oprogramowania, lecz udziela tej osobie licencji na korzystanie z niniejszego systemu operacyjnego zgodnie z niniejszymi warunkami.
+1. Interpuce Team nie nadaje własności projektu na osobę korzystającą z oprogramowania lub ją współtworzącą, lecz udziela tej osobie licencji na korzystanie z niniejszego systemu operacyjnego zgodnie z niniejszymi warunkami.
 
 2. Interpuce Team zastrzega sobie prawo do zmiany niniejszej licencji w dowolnym momencie po poinformowaniu za pośrednictwem oficjalnych kanałów komunikacji.
 
@@ -12,13 +12,14 @@
 
 1. Użytkownik może zapoznać się z kodem źródłowym, ale nie może tworzyć własnych modyfikacji systemu, nie może tworzyć jego dystrybucji (ani innych podobnych nazw) ani kopiować go w żadnym kodzie systemu.
 
-2. Użytkownik może poprawić kod, jednak poprawek tych nie można znaleźć poza funkcją `Github Pull Requests`, np. na komputerze użytkownika.
+2. Użytkownik może poprawić kod, jednak poprawek tych nie można znaleźć poza forkami i funkcją `Github Pull Requests`, np. na komputerze użytkownika.
 
 3. Użytkownikom nie wolno w żaden sposób wysyłać ani posiadać fragmentów kodu źródłowego poza repozytorium GitHub.
 
 4. Użytkownik może pobrać na swój komputer kod źródłowy systemu operacyjnego, ale wyłącznie w celu:
     - kompilowania wersji beta
     - kompilowania debugera AurorOS
+    - debugowania forka repo
 
 5. Jedynymi osobami, których niniejsze warunki nie dotyczą, jest Interpuce Team tworzący system.
 
