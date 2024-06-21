@@ -18,15 +18,11 @@
 
 // Function executes before multitasking cycle
 int system_loop() {
-    // Perform system tasks here
-    // For example: check for system events, manage resources, etc.
     return 0; // No errors
 }
 
 // Function to use multitasking in AurorOS
 int multitasking_loop() {
-    // Perform multitasking tasks here
-    // For example: schedule processes, manage task switching, etc.
     return 0; // No errors
 }
 
