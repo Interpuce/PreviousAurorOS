@@ -27,11 +27,23 @@ KERNEL_OBJ = $(TARGET)/kernel.o
 # The final kernel binary
 KERNEL_BIN = $(TARGET)/kernel.bin
 
+# Detect OS
+UNAME_S := $(shell uname -s)
+
+# OS-specific commands
+ifeq ($(UNAME_S), Linux)
+    MKDIR_P = mkdir -p
+    RM = rm -rf
+else
+    MKDIR_P = mkdir
+    RM = rmdir /S /Q
+endif
+
 # Rules
 all: $(KERNEL_BIN)
 
 $(TARGET):
-	mkdir -p $(TARGET)
+	$(MKDIR_P) $(TARGET)
 
 $(KERNEL_OBJ): $(KERNEL_SRC) | $(TARGET)
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -40,6 +52,6 @@ $(KERNEL_BIN): $(KERNEL_OBJ)
 	$(CC) -T linker.ld -o $@ -ffreestanding -O2 -nostdlib $^
 
 clean:
-	rm -rf $(TARGET_DIR)
+	$(RM) $(TARGET_DIR)
 
 .PHONY: all clean
