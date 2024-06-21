@@ -36,11 +36,6 @@ else
     RM = rm -rf $(TARGET_DIR)
 endif
 
-# Check if gcc is available
-ifeq ($(shell which $(CC) 2> /dev/null),)
-$(error gcc is not installed or not found in PATH)
-endif
-
 # Rules
 all: $(KERNEL_BIN)
 
