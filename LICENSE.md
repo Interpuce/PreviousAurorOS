@@ -12,9 +12,9 @@
 
 1. The user may read the source code, but may not create his own modifications of the system, may not create its distribution (or other similar names) or copy it in any system code.
 
-2. The user can correct the code, but these corrections cannot be found outside the `Github Pull Requests` function, for example on the user's computer.
+2. The user can correct the code, but these corrections cannot be found outside the forks and the `Github Pull Requests` function, for example on the user's computer.
 
-3. Users may not in any way send or own pieces of source code outside of the GitHub repository (exceptions in 4 point).
+3. Users may not in any way send or own pieces of source code outside of the GitHub repository / forks of repository (exceptions in 4 point).
 
 4. The user can download the OS source code to his computer, but only for:
     - compiling beta builds
