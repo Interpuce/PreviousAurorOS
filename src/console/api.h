@@ -7,6 +7,7 @@
 //       and for displaying errors, warnings and notices
 
 #include <stdbool.h>
+#include <string.h>
 
 // Prints a string to the console
 void print_string(const char* str) {
