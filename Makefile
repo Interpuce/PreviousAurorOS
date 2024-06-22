@@ -28,16 +28,22 @@ KERNEL_OBJ = $(TARGET)/kernel.o
 KERNEL_BIN = $(TARGET)/kernel.bin
 
 # OS-specific commands
-ifdef ComSpec
-    MKDIR_P = if not exist $(subst /,\\,$(TARGET)) mkdir $(subst /,\\,$(TARGET))
-    RM = rmdir /S /Q $(subst /,\\,$(TARGET_DIR))
+ifeq ($(OS),Windows_NT)
+    MKDIR_P = if not exist $(subst /,\,$(TARGET)) mkdir $(subst /,\,$(TARGET))
+    RM = rmdir /S /Q $(subst /,\,$(TARGET_DIR))
 else
     MKDIR_P = mkdir -p $(TARGET)
     RM = rm -rf $(TARGET_DIR)
 endif
 
-# Rules
-all: $(KERNEL_BIN)
+# Default rule to display options
+all:
+	@echo Usage:
+	@echo   make build   - Build the OS
+	@echo   make clean   - Clean the build output
+
+# Rule to build the kernel
+build: $(KERNEL_BIN)
 
 $(TARGET):
 	$(MKDIR_P)
@@ -48,7 +54,8 @@ $(KERNEL_OBJ): $(KERNEL_SRC) | $(TARGET)
 $(KERNEL_BIN): $(KERNEL_OBJ)
 	$(CC) -T linker.ld -o $@ -ffreestanding -O2 -nostdlib $^
 
+# Rule to clean the build output
 clean:
 	$(RM)
 
-.PHONY: all clean
+.PHONY: all build clean
