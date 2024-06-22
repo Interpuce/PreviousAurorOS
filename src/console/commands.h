@@ -24,7 +24,7 @@ int execute_command(const char *command, char *args[]) {
         print_line("# help - Displays this help");
         print_line("# echo - Writes user-provided string");
         print_line("# power - Helps you manage the power of the computer");
-        print_line("          like shuting down or rebooting.");
+        print_line("          like shutting down or rebooting.");
         print_line("==========================================================");
     } else if (strcmp(command, "echo") == 0) {
         for (int i = 0; args[i] != NULL; i++) {
