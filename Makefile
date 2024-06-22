@@ -38,6 +38,9 @@ endif
 
 # Default rule to display options
 all:
+	@echo ==============================================
+	@echo                AurorOS Make
+	@echo ==============================================
 	@echo Usage:
 	@echo   make build   - Build the OS
 	@echo   make clean   - Clean the build output
