@@ -14,7 +14,6 @@ help:
 	@echo Available commands:
 	@echo   make help    - Show this help message
 	@echo   make kernel  - Build the kernel binary
-	@echo   make build   - Build the ISO image
 	@echo   make clean   - Clean the output directory
 
 kernel: out/kernel.bin
