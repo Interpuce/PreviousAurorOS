@@ -21,23 +21,9 @@ kernel: out/kernel.bin
 
 out/kernel.bin: src/kernel/main.c
 	@echo Building kernel...
-	@mkdir -p out
+	@md out
 	gcc -o out/kernel.bin src/kernel/main.c
-
-build: check-kernel
-	@echo Creating ISO structure...
-	@mkdir -p out/iso/AurorOS
-	@mkdir -p out/iso/Apps
-	@cp out/kernel.bin out/iso/AurorOS/kernel.aur
-	@echo Generating ISO...
-	mkisofs -o out/AurorOS.iso -V "AurorOS" -R -J out/iso
-
-check-kernel:
-	@if not exist out\kernel.bin ( \
-		echo "Kernel binary not found. Please run 'make kernel' first."; \
-		exit 1; \
-	)
 
 clean:
 	@echo Cleaning output directory...
-	@rm -rf out
+	@rd /s /q out
