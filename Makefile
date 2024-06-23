@@ -33,10 +33,10 @@ build: check-kernel
 	mkisofs -o out/AurorOS.iso -V "AurorOS" -R -J out/iso
 
 check-kernel:
-	@if [ ! -f out/kernel.bin ]; then \
+	@if not exist out\kernel.bin ( \
 		echo "Kernel binary not found. Please run 'make kernel' first."; \
 		exit 1; \
-	fi
+	)
 
 clean:
 	@echo Cleaning output directory...
