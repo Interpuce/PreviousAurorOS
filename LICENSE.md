@@ -1,6 +1,6 @@
 # AurorOS license
 
-[View original license](https://github.com/Interpuce/AurorOS/blob/main/docs/licenses/OS.md)
+[View original, not translated license](https://github.com/Interpuce/AurorOS/blob/main/docs/licenses/OS.md)
 
 ## Preliminary provisions
 

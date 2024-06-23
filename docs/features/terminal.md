@@ -1,6 +1,6 @@
 # Using the terminal
 
-The AurorOS has build-in console mode and terminal. Here's how you can use them.
+The AurorOS has build-in console mode and terminal. This document contains information about them and tutorial how to use commands.
 
 ## Table of contents
 

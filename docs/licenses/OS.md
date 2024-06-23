@@ -1,6 +1,6 @@
 # Licencja AurorOS
 
-[Zobacz oryginalną licencję](https://github.com/Interpuce/AurorOS/blob/main/docs/licenses/OS.md)
+[Zobacz oryginalną, nieprzetłumaczoną licencję](https://github.com/Interpuce/AurorOS/blob/main/docs/licenses/OS.md)
 
 ## Postanowienia wstępne
 

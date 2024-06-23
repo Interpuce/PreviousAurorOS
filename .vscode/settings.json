@@ -36,8 +36,5 @@
     // Disable error squiggless because they are useless and they doesn't help
     "C_Cpp.errorSquiggles": "disabled",
 
-    // I don't know what it is
-    "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
-        "clang-diagnostic-error"
-    ]
+    // Automatic VSC options
 }

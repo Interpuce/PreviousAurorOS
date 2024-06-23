@@ -1,4 +1,5 @@
 # Sponsor AurorOS
 
 - ⭐ Give us a star!
-- 🤖 Search for bugs (obviously read [license](https://github.com/Interpuce/AurorOS/blob/main/LICENSE.md))
+- 🤖 Search for bugs!
+- 😎 Write AurorOS code if you aren't noob!
