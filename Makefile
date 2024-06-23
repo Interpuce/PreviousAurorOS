@@ -20,9 +20,9 @@ kernel: out/kernel.bin
 
 out/kernel.bin: src/kernel/main.c
 	@echo Building kernel...
-	@md out
+	@mkdir -p out
 	gcc -o out/kernel.bin src/kernel/main.c
 
 clean:
 	@echo Cleaning output directory...
-	@rd /s /q out
+	@rm -rf out

@@ -4,7 +4,7 @@
 
 // Loads kernel subsystems and initializes drivers.
 void init() {
-    // Actually it don't return anything
+    // This function don't return anything
 }
 
 // The AurorOS main function.
