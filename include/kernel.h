@@ -5,11 +5,15 @@
 // If you want to learn how kernel works, use documentation.
 // The code can be unreadable in some moments.
 
-// Include kernel API (from /includes/kernel.h)
-#include <kernel.h>
+// The success code.
+#define CODE_SUCCESS 0
 
-// The main kernel function. Here kernel starts working and uses functions from the kernel API (in the future).
-int main() {
-    init(1);
-    return 0; // Return 0 by default (success)
+// Initializes kernel subsystems.
+void init(int start_code) {
+    if (start_code == 1) {
+        // Initializes kernel subsystems (in the future)
+        return CODE_SUCCESS; // Returns success
+    } else {
+        return -1; // The start code is invalid
+    }
 }
