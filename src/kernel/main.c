@@ -8,7 +8,7 @@
 // Include booleans
 #include <stdbool.h>
 
-// Include kernel API (from /includes/kernel.h)
+// Include kernel API (from /includes/auror/kernel.h)
 #include <auror/kernel.h>
 
 // The main kernel function. Here kernel starts working and uses functions from the kernel API (in the future).
