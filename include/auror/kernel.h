@@ -8,12 +8,25 @@
 // The success code.
 #define CODE_SUCCESS 0
 
+// The invalid code
+#define CODE_INVALID -1
+
 // Initializes kernel subsystems.
-void init(int start_code) {
+int init(int start_code) {
     if (start_code == 1) {
         // Initializes kernel subsystems (in the future)
         return CODE_SUCCESS; // Returns success
     } else {
-        return -1; // The start code is invalid
+        return CODE_INVALID; // The start code is invalid
     }
+}
+
+// The update loop executed after system loop
+int loop_update() {
+    return CODE_SUCCESS;
+}
+
+// The system loop
+int loop_system() {
+    return CODE_SUCCESS;
 }
