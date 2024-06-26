@@ -13,26 +13,26 @@
 
 #include <stddef.h>
 
-static inline size_t my_strlen(const char *str) {
+static inline size_t strlen(const char *str) {
     size_t len = 0;
     while (*str++) len++;
     return len;
 }
 
-static inline char *my_strcpy(char *dest, const char *src) {
+static inline char *strcpy(char *dest, const char *src) {
     char *d = dest;
     while ((*d++ = *src++));
     return dest;
 }
 
-static inline char *my_strcat(char *dest, const char *src) {
+static inline char *strcat(char *dest, const char *src) {
     char *d = dest;
     while (*d) d++;
     while ((*d++ = *src++));
     return dest;
 }
 
-static inline int my_strcmp(const char *str1, const char *str2) {
+static inline int strcmp(const char *str1, const char *str2) {
     while (*str1 && (*str1 == *str2)) {
         str1++;
         str2++;
