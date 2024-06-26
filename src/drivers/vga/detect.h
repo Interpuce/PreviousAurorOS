@@ -6,7 +6,7 @@
 // needs to load an another VGA driver in console mode or skip it.
 
 // ISSUE: If there any VGA monitor, the system will mark the first
-//        found VGA monitor to a default monitor.
+//        found VGA monitor as a default monitor.
 
 // Include INT types
 #include <stdint.h>
