@@ -10,11 +10,11 @@
 // Include the INT types.
 #include <stdint.h>
 
-// Video ports addresses
+// Video ports addresses (VGA registers)
 #define VGA_CTRL_REG 0x3D4
 #define VGA_DATA_REG 0x3D5
 
-// Text mode screen dimensions
+// Text mode screen dimensions (width and height in lines)
 #define VGA_WIDTH 80
 #define VGA_HEIGHT 25
 
@@ -25,7 +25,7 @@
 // Global variables to track cursor position and attribute for primary monitor
 uint8_t vga_cursorx = 0;
 uint8_t vga_cursory = 0;
-uint8_t vga_cursorattr = VGA_COLOR_WHITE; // Default color
+uint8_t vga_cursorattr = VGA_COLOR_WHITE;
 
 // Function to set cursor position for primary monitor
 void vga_set_cursor_position(uint8_t x, uint8_t y) {
@@ -80,12 +80,14 @@ void vga_print_string(const char *str) {
         str++;
     }
 
+    // Set the text cursor position
     vga_set_cursor_position(x, y);
 }
 
 // Function to read from console (stdin) for primary monitor
 char vga_read_console() {
     // It will probably need a keyboard driver, so for making it simple just return X
+    // Yes, I can simply return X without the variable.
     char input = 'X';
     return input;
 }
@@ -93,8 +95,10 @@ char vga_read_console() {
 // Function to clear the screen of primary monitor
 void vga_clear_screen() {
     volatile uint16_t *video_memory = (volatile uint16_t *)0xB8000;
+
     for (int i = 0; i < VGA_WIDTH * VGA_HEIGHT; ++i) {
         video_memory[i] = ' ' | (vga_cursorattr << 8);
     }
+    
     vga_set_cursor_position(0, 0);
 }
