@@ -22,12 +22,10 @@ help:
 	@echo "  make clean   - Clean the output directory"
 
 # Define rules for compiling kernel
-kernel: out/kernel.bin
-
-out/kernel.bin: src/kernel/main.c
+kernel:
 	@echo Building kernel...
 	@mkdir -p out
-	gcc ${CFLAGS} -o out/kernel.bin src/kernel/main.c
+	gcc ${CFLAGS} -o out/kernel.bin src/kernel/main.c src/drivers/console.c
 
 # Define rule for cleaning.
 clean:
