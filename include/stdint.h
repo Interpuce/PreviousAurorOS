@@ -8,6 +8,9 @@
 // Some files needs this file so it was rewritted 
 // to be helpful in these files.
 
+#ifndef _STDINT
+#define _STDINT 1
+
 typedef signed char         int8_t;
 typedef short               int16_t;
 typedef int                 int32_t;
@@ -109,3 +112,5 @@ typedef unsigned long long  uintmax_t;
 #define UINT16_C(value)     value ## U
 #define UINT32_C(value)     value ## U
 #define UINT64_C(value)     value ## ULL
+
+#endif

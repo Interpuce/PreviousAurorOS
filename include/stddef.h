@@ -8,6 +8,9 @@
 // Some files needs this file so it was rewritted 
 // to be helpful in these files.
 
+#ifndef _STDDEF
+#define _STDDEF 1
+
 typedef unsigned long size_t;
 
 #ifndef NULL
@@ -15,3 +18,5 @@ typedef unsigned long size_t;
 #endif
 
 typedef long ptrdiff_t;
+
+#endif

@@ -8,6 +8,9 @@
 // Some files needs this file so it was rewritted 
 // to be helpful in these files.
 
+#ifndef _STRINGH
+#define _STRINGH 1
+
 #include <stddef.h>
 
 static inline size_t my_strlen(const char *str) {
@@ -36,3 +39,5 @@ static inline int my_strcmp(const char *str1, const char *str2) {
     }
     return *(unsigned char *)str1 - *(unsigned char *)str2;
 }
+
+#endif

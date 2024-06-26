@@ -5,6 +5,9 @@
 // If you want to learn how kernel works, use documentation.
 // The code can be unreadable in some moments.
 
+#ifndef _AUROR_KERNEL
+#define _AUROR_KERNEL 1
+
 // The current AurorOS version
 #define OS_VERSION "1.0.0"
 
@@ -33,3 +36,5 @@ int loop_update() {
 int loop_system() {
     return CODE_SUCCESS;
 }
+
+#endif

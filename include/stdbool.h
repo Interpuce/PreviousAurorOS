@@ -8,6 +8,11 @@
 // Some files needs this file so it was rewritted 
 // to be helpful in these files.
 
+#ifndef _STDBOOL
+#define _STDBOOL1
+
 #define bool _Bool
 #define true 1
 #define false 0
+
+#endif
