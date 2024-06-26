@@ -5,6 +5,9 @@
 // If you want to learn how kernel works, use documentation.
 // The code can be unreadable in some moments.
 
+// The current AurorOS version
+#define OS_VERSION "1.0.0"
+
 // The success code.
 #define CODE_SUCCESS 0
 
