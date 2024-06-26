@@ -25,7 +25,7 @@ help:
 kernel:
 	@echo Building kernel...
 	@mkdir -p out
-	gcc ${CFLAGS} -o out/kernel.bin src/kernel/main.c src/drivers/console.c
+	gcc ${CFLAGS} -o out/kernel.bin src/kernel/main.c
 
 # Define rule for cleaning.
 clean:
