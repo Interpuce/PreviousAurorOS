@@ -27,6 +27,9 @@
 
     // Disable error squiggless because they are useless and they doesn't help
     "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "stdbool.h": "c"
+    },
 
     // Automatic VSC options
 }

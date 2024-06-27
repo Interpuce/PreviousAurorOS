@@ -23,7 +23,7 @@ bool isVGApresent;
 int cm_init() {
     // Detect VGA
     if (vga_check_monitor_presence()) {
-        // VGA is detected, set the variable that VGA is present
+        // VGA is detected, set the variable taht VGA is present
         isVGApresent = true;
     
         // Exit for now
