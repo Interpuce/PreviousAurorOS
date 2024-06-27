@@ -2,7 +2,7 @@
 //                       Created by Interpuce Team
 // -------------------------------------------------------------------
 
-// The console implementation. It has basic running implementation
+// The console implementation. It has basic console run implementation
 // and the console commands.
 
 // Use the booleans
@@ -17,20 +17,22 @@
 // VGA console mode driver (runned only if VGA is detected)
 #include "../vga/console.h"
 
+bool isVGApresent;
+
 // The main console function
 int cm_init() {
     // Detect VGA
     if (vga_check_monitor_presence()) {
-        // VGA is detected, initialize the VGA console mode driver
-        vga_print_string("Hello world!");
-        while (true) {
-            // For now, prevent the function from returning 0
-        }
+        // VGA is detected, set the variable that VGA is present
+        isVGApresent = true;
+    
+        // Exit for now
+        return CODE_SUCCESS;
     } else {
         // Just exit the kernel, because it is useless (for now)
-        return 0;
+        return CODE_SUCCESS;
     }
 
     // Return 0 (the kernel cannot probably go here)
-    return 0;
+    return CODE_INVALID;
 }

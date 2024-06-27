@@ -19,7 +19,7 @@ int main() {
     // Init kernel subsystems
     init(1);
 
-    // Just for demostration print "Hello World!"
+    // Init console mode (for now GUI is not supported)
     cm_init();
 
     // The main kernel loop
