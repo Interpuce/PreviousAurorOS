@@ -9,7 +9,7 @@
 #define _AUROR_KERNEL 1
 
 // The current AurorOS version
-#define OS_VERSION "1.0.0"
+#define OS_VERSION "0.0.1 Snapshot 1"
 
 // The success code.
 #define CODE_SUCCESS 0
