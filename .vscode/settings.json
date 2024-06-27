@@ -25,15 +25,6 @@
     // Disable disgusting compact folders
     "explorer.compactFolders": false,
 
-    // Visual Studio Code propably added this automatically
-    "files.associations": {
-        "ntfs.h": "c",
-        "afs.h": "c",
-        "api.h": "c",
-        "ntfs3.h": "c",
-        "stdint.h": "c"
-    },
-
     // Disable error squiggless because they are useless and they doesn't help
     "C_Cpp.errorSquiggles": "disabled",
 
