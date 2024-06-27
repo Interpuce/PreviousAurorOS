@@ -13,23 +13,24 @@
 
 // A function that detects VGA screens.
 int vga_check_monitor_presence() {
+    // Pointer to the VGA text mode memory address
     volatile uint16_t *video_memory = (volatile uint16_t *)0xB8000;
 
-    // The default value for VGA
-    uint16_t default_value = 0x0700;
-
-    // The first byte of memory
+    // Save the original value at the first position of video memory
     uint16_t saved_value = *video_memory;
 
-    // Save the default value
-    *video_memory = default_value;
+    // Set a test value
+    uint16_t test_value = 0xAA55;
 
-    // Read the value
+    // Write the test value to video memory
+    *video_memory = test_value;
+
+    // Read back the value
     uint16_t read_value = *video_memory;
 
-    // Fix the changed value
+    // Restore the original value
     *video_memory = saved_value;
 
-    // The final check
-    return (read_value == default_value);
+    // Check if the value read matches the value written
+    return (read_value == test_value);
 }

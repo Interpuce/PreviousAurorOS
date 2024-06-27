@@ -30,7 +30,8 @@
         "ntfs.h": "c",
         "afs.h": "c",
         "api.h": "c",
-        "ntfs3.h": "c"
+        "ntfs3.h": "c",
+        "stdint.h": "c"
     },
 
     // Disable error squiggless because they are useless and they doesn't help
