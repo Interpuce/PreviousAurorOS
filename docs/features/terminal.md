@@ -21,7 +21,7 @@ You can input the commands using the keyboard like this:
 ```command first_argument second_argument etc```
 
 > [!CAUTION]
-> **Any command argument is interpretted by terminal by string.** Note this when building apps.
+> **Any command argument is interpretted by terminal as string.** Note this when building apps.
 
 You can run command as administartor using the `admin` command (like `sudo` in Linux):
 
