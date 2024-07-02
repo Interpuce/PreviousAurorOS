@@ -11,6 +11,8 @@
 #ifndef _STDINT
 #define _STDINT 1
 
+// The types definitions
+
 typedef signed char         int8_t;
 typedef short               int16_t;
 typedef int                 int32_t;
@@ -46,6 +48,9 @@ typedef unsigned long long  uintptr_t;
 
 typedef long long           intmax_t;
 typedef unsigned long long  uintmax_t;
+
+// The various constants defines the minimum and maximum numbers
+// of defined integer types
 
 #define INT8_MIN            (-128)
 #define INT16_MIN           (-32767-1)
