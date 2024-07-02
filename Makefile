@@ -8,20 +8,26 @@
 # Don't learn how to build the AurorOS using this file!
 # Use Makefile to get the latest compilation mode!
 
-# Define flags for GCC
+# Define compiler and flags
+CC = gcc
 CFLAGS = -Wall -Wextra -O2 -nostdinc -ffreestanding -fno-builtin -Iinclude
+LDFLAGS = -ffreestanding -nostdlib
 
-# Define drivers C files
-DRIVERS_FILES = drivers/console/init.c drivers/vga/console.c
+# Define source files
+KERNEL_SRC = kernel/main.c
+DRIVERS_SRC = drivers/console/init.c drivers/vga/console.c
 
-.PHONY: all help kernel build clean
+# Define object files
+KERNEL_OBJ = $(KERNEL_SRC:.c=.o)
+DRIVERS_OBJ = $(DRIVERS_SRC:.c=.o)
+
+# Define output directory
+OUT_DIR = out
+
+.PHONY: all help kernel clean
 
 # Define rule for normal `make`
-all:
-	@echo "======================================================"
-	@echo "                   AurorOS Makefile"
-	@echo "======================================================"
-	@echo 'Write "make help" to get help.'
+all: help
 
 # Define rule for `make help`
 help:
@@ -31,12 +37,19 @@ help:
 	@echo "  make clean   - Clean the output directory"
 
 # Define rules for compiling kernel
-kernel:
-	@echo Building kernel...
-	@mkdir -p out
-	gcc ${CFLAGS} kernel/main.c ${DRIVERS_FILES} -o out/kernel.bin
+kernel: $(OUT_DIR)/kernel.bin
+
+$(OUT_DIR)/kernel.bin: $(KERNEL_OBJ) $(DRIVERS_OBJ)
+	@echo "Linking kernel..."
+	@mkdir -p $(OUT_DIR)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+%.o: %.c
+	@echo "Compiling $<..."
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Define rule for cleaning.
 clean:
-	@echo Cleaning output directory...
-	@rm -rf out
+	@echo "Cleaning output directory..."
+	@rm -rf $(OUT_DIR)
+	@find . -name "*.o" -type f -delete
