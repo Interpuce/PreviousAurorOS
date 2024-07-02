@@ -14,8 +14,7 @@
 // VGA detection driver
 #include "../vga/detect.h"
 
-// VGA console mode driver (runned only if VGA is detected)
-#include "../vga/console.h"
+// VGA console mode driver are included in compilation
 
 bool isVGApresent;
 
