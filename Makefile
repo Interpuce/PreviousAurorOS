@@ -8,6 +8,11 @@
 # Don't learn how to build the AurorOS using this file!
 # Use Makefile to get the latest compilation mode!
 
+# Prevent Windows users from running Makefile
+ifeq ($(OS),Windows_NT)
+$(error This Makefile is supported only on Linux, for deploying this on Windows please use WSL)
+endif
+
 # Define compiler and flags
 CC = gcc
 CFLAGS = -Wall -Wextra -O2 -nostdinc -ffreestanding -fno-builtin -Iinclude
