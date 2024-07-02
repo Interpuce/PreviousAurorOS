@@ -24,4 +24,4 @@ extern char vga_read_console();
 extern void vga_clear_screen();
 
 // A function that detects VGA screen.
-int vga_check_monitor_presence();
+extern int vga_check_monitor_presence();
