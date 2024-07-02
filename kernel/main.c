@@ -11,9 +11,6 @@
 // Include kernel API (from /includes/auror/kernel.h)
 #include "kernel.h"
 
-// Include console driver
-#include "../drivers/console/init.h"
-
 // The main kernel function. Here kernel starts working and uses functions from the kernel API (in the future).
 int main() {
     // Init kernel subsystems

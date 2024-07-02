@@ -31,7 +31,7 @@ help:
 kernel:
 	@echo Building kernel...
 	@mkdir -p out
-	gcc ${CFLAGS} -o out/kernel.bin src/kernel/main.c
+	gcc ${CFLAGS} kernel/main.c drivers/console/init.c  -o out/kernel.bin
 
 # Define rule for cleaning.
 clean:
