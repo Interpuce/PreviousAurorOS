@@ -11,10 +11,8 @@
 // Use the kernel headers
 #include "../../kernel/kernel.h"
 
-// VGA detection driver
-#include "../vga/detect.h"
-
-// VGA console mode driver are included in compilation
+// VGA console mode and detection driver are included 
+// using linking feature during the compilation process
 
 bool isVGApresent;
 
