@@ -23,7 +23,7 @@ bool isVGApresent;
 int cm_init() {
     // Detect VGA
     if (vga_check_monitor_presence()) {
-        // VGA is detected, set the variable taht VGA is present
+        // VGA is detected, set the variable that VGA is present
         isVGApresent = true;
     
         // Exit for now
@@ -33,6 +33,6 @@ int cm_init() {
         return CODE_SUCCESS;
     }
 
-    // Return 0 (the kernel cannot probably go here)
+    // Return -1 (the kernel cannot probably go here)
     return CODE_INVALID;
 }
