@@ -5,6 +5,9 @@
 // This is a custom header file used to declare (not define) functions
 // defined in various kernel-side C files.
 
+#ifndef _KERDEF
+#define _KERDEF 1
+
 // ---------------------------- drivers/vga/console.c ----------------------------
 
 // Function to set cursor position for primary monitor
@@ -40,3 +43,5 @@ extern int loop_system();
 
 // Initializes kernel subsystems.
 extern int init(int start_code);
+
+#endif
