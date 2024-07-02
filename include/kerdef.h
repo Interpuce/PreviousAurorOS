@@ -5,6 +5,8 @@
 // This is a custom header file used to declare (not define) functions
 // defined in various kernel-side C files.
 
+// ---------------------------- drivers/vga/console.c ----------------------------
+
 // Function to set cursor position for primary monitor
 extern void vga_set_cursor_position(uint8_t x, uint8_t y);
 
@@ -23,5 +25,18 @@ extern char vga_read_console();
 // Function to clear the screen of primary monitor
 extern void vga_clear_screen();
 
+// ---------------------------- drivers/vga/detect.c ----------------------------
+
 // A function that detects VGA screen.
 extern int vga_check_monitor_presence();
+
+// ---------------------------- kernel/kernel.h ----------------------------
+
+// The update loop executed after system loop
+extern int loop_update();
+
+// The system loop
+int loop_system();
+
+// Initializes kernel subsystems.
+int init(int start_code);
