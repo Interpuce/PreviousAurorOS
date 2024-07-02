@@ -7,4 +7,4 @@
 
 Welcome to official (or forked) AurorOS GitHub repository. AurorOS is an OS created with passion by Interpuce Team (and other people who wanted to voluntarily get involved in the project). 
 
-You can find here things like AurorOS drivers, Makefile, AurorOS kernel and many more! All is basically open-source, but read the license.
+You can find here things like AurorOS drivers, Makefile, AurorOS kernel and other stuff created by Interpuce Team for AurorOS.
