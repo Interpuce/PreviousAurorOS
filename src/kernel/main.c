@@ -12,7 +12,7 @@
 #include "kernel.h"
 
 // Include console driver
-#include "../drivers/console/run.h"
+#include "../drivers/console/init.h"
 
 // The main kernel function. Here kernel starts working and uses functions from the kernel API (in the future).
 int main() {

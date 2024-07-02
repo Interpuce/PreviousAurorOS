@@ -2,7 +2,7 @@
 //                       Created by Interpuce Team
 // -------------------------------------------------------------------
 
-// The console implementation. It has basic console run implementation
+// The console implementation. It has basic console init implementation
 // and the console commands.
 
 // Use the booleans
