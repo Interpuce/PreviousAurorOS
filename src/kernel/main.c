@@ -9,7 +9,7 @@
 #include <stdbool.h>
 
 // Include kernel API (from /includes/auror/kernel.h)
-#include <auror/kernel.h>
+#include "kernel.h"
 
 // Include console driver
 #include "../drivers/console/run.h"

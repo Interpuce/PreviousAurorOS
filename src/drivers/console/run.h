@@ -9,7 +9,7 @@
 #include <stdbool.h>
 
 // Use the kernel headers
-#include <auror/kernel.h>
+#include "../../kernel/kernel.h"
 
 // VGA detection driver
 #include "../vga/detect.h"
