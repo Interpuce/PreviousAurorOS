@@ -17,6 +17,7 @@ int main() {
     init(1);
 
     // Init console mode (for now GUI is not supported)
+    // The cm_init function is linked from /drivers.console/init.c file
     cm_init();
 
     // The main kernel loop
