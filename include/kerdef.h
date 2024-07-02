@@ -22,3 +22,6 @@ extern char vga_read_console();
 
 // Function to clear the screen of primary monitor
 extern void vga_clear_screen();
+
+// A function that detects VGA screen.
+int vga_check_monitor_presence();
