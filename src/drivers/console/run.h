@@ -29,6 +29,9 @@ int cm_init() {
         // Exit for now
         return CODE_SUCCESS;
     } else {
+        // Set the variable that VGA is not present
+        isVGApresent = false;
+
         // Just exit the kernel, because it is useless (for now)
         return CODE_SUCCESS;
     }
