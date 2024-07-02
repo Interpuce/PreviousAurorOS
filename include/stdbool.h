@@ -9,7 +9,7 @@
 // to be helpful in these files.
 
 #ifndef _STDBOOL
-#define _STDBOOL1
+#define _STDBOOL 1
 
 #define bool _Bool
 #define true 1
