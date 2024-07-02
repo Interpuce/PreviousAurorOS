@@ -11,6 +11,9 @@
 // Include INT types
 #include <stdint.h>
 
+// Declare these functions
+#include <kerdef.h>
+
 // A function that detects VGA screen.
 int vga_check_monitor_presence() {
     // Pointer to the VGA text mode memory address

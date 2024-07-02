@@ -13,6 +13,9 @@
 // Include the header file
 #include "console.h"
 
+// Declare these functions
+#include <kerdef.h>
+
 // Function to set cursor position for primary monitor
 void vga_set_cursor_position(uint8_t x, uint8_t y) {
     uint16_t position = y * VGA_WIDTH + x;
