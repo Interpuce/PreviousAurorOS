@@ -11,6 +11,9 @@
 # Define flags for GCC
 CFLAGS = -Wall -Wextra -O2 -nostdinc -ffreestanding -fno-builtin -Iinclude
 
+# Define drivers C files
+DRIVERS_FILES = drivers/console/init.c drivers/vga/console.c
+
 .PHONY: all help kernel build clean
 
 # Define rule for normal `make`
@@ -31,7 +34,7 @@ help:
 kernel:
 	@echo Building kernel...
 	@mkdir -p out
-	gcc ${CFLAGS} kernel/main.c drivers/console/init.c  -o out/kernel.bin
+	gcc ${CFLAGS} kernel/main.c ${DRIVERS_FILES} -o out/kernel.bin
 
 # Define rule for cleaning.
 clean:
