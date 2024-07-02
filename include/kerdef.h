@@ -36,7 +36,7 @@ extern int vga_check_monitor_presence();
 extern int loop_update();
 
 // The system loop
-int loop_system();
+extern int loop_system();
 
 // Initializes kernel subsystems.
-int init(int start_code);
+extern int init(int start_code);
