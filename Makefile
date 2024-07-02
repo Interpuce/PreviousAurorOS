@@ -2,6 +2,12 @@
 #                      AurorOS Makefile
 # ========================================================
 
+# THIS MAKEFILE WORKS ON LINUX!
+# Don't try to run this Makefile on Windows or other OS'es.
+
+# Don't learn how to build the AurorOS using this file!
+# Use Makefile to get the latest compilation mode!
+
 # Define flags for GCC
 CFLAGS = -Wall -Wextra -O2 -nostdinc -ffreestanding -fno-builtin -Iinclude
 
