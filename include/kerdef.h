@@ -7,6 +7,10 @@
 
 #pragma once // Use new `pragma once` instead of checking if the constant is defined.
 
+// Information for Visual Studio Code users: don't belive the information
+//   from the editor that function is not defined. To disable this disgusting
+//   error, open the tabs with files defining functions and close it.
+
 // ---------------------------- drivers/vga/console.c ----------------------------
 
 // Function to set cursor position for primary monitor
