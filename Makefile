@@ -23,8 +23,8 @@ KERNEL_SRC = kernel/main.c
 DRIVERS_SRC = drivers/console/init.c drivers/vga/console.c drivers/fs/fat32/fat32.c
 
 # Define object files
-KERNEL_OBJ = $(KERNEL_SRC:.c=.o)
-DRIVERS_OBJ = $(DRIVERS_SRC:.c=.o)
+KERNEL_OBJ = $(patsubst %.c, $(OUT_DIR)/%.o, $(KERNEL_SRC))
+DRIVERS_OBJ = $(patsubst %.c, $(OUT_DIR)/%.o, $(DRIVERS_SRC))
 
 # Define output directory
 OUT_DIR = out
@@ -49,8 +49,9 @@ $(OUT_DIR)/kernel.bin: $(KERNEL_OBJ) $(DRIVERS_OBJ)
 	@mkdir -p $(OUT_DIR)
 	$(CC) $(LDFLAGS) -o $@ $^
 
-%.o: %.c
+$(OUT_DIR)/%.o: %.c
 	@echo "Compiling $<..."
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Define rule for cleaning.
