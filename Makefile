@@ -9,6 +9,8 @@
 # Use Makefile to get the latest compilation mode!
 
 # Prevent Windows users from running Makefile
+# Note for Windows users: really, install Windows Subsystem for Linux,
+#                         programmers must use Linux sometimes...
 ifeq ($(OS),Windows_NT)
 $(error This Makefile is supported only on Linux; please use WSL for Windows)
 endif
@@ -22,12 +24,12 @@ LDFLAGS = -ffreestanding -nostdlib
 SRC_DIR = src
 
 # Source files
-KERNEL_SRC = $(SRC_DIR)/kernel/main.c
-DRIVERS_SRC = $(SRC_DIR)/drivers/console/init.c $(SRC_DIR)/drivers/vga/console.c $(SRC_DIR)/drivers/fs/fat32/fat32.c
+KERNEL_SRC = $(wildcard $(SRC_DIR)/kernel/*.c)
+DRIVERS_SRC = $(wildcard $(SRC_DIR)/drivers/**/*.c)
 
 # Object files
-KERNEL_OBJ = $(patsubst $(SRC_DIR)/%.c,$(OUT_DIR)/%.o,$(KERNEL_SRC))
-DRIVERS_OBJ = $(patsubst $(SRC_DIR)/%.c,$(OUT_DIR)/%.o,$(DRIVERS_SRC))
+KERNEL_OBJ = $(KERNEL_SRC:$(SRC_DIR)/%.c=out/%.o)
+DRIVERS_OBJ = $(DRIVERS_SRC:$(SRC_DIR)/%.c=out/%.o)
 
 # Output directory
 OUT_DIR = out
@@ -52,7 +54,7 @@ $(OUT_DIR)/kernel.bin: $(KERNEL_OBJ) $(DRIVERS_OBJ) | $(OUT_DIR)
 	$(CC) $(LDFLAGS) $^ -o $@
 
 # Rule to compile C source files into object files
-$(OUT_DIR)/%.o: $(SRC_DIR)/%.c | $(OUT_DIR)
+out/%.o: $(SRC_DIR)/%.c | $(OUT_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Create output directory if it doesn't exist
