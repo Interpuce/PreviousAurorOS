@@ -11,7 +11,7 @@
 
 #include <stdint.h>
 
-struct BootSector {
+struct FAT32BootSector {
     uint8_t jmpBoot[3];
     char OEMName[8];
     uint16_t bytesPerSector;
@@ -43,7 +43,7 @@ struct BootSector {
     char fileSystemType[8];
 };
 
-struct DirectoryEntry {
+struct FAT32DirectoryEntry {
     char name[11];
     uint8_t attr;
     uint8_t ntRes;
