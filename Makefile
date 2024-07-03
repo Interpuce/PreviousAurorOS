@@ -20,7 +20,7 @@ LDFLAGS = -ffreestanding -nostdlib
 
 # Define source files
 KERNEL_SRC = kernel/main.c
-DRIVERS_SRC = drivers/console/init.c drivers/vga/console.c
+DRIVERS_SRC = drivers/console/init.c drivers/vga/console.c drivers/fs/fat32/fat32.c
 
 # Define object files
 KERNEL_OBJ = $(KERNEL_SRC:.c=.o)
