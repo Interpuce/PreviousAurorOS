@@ -26,12 +26,11 @@ KERNEL_SRC = $(SRC_DIR)/kernel/main.c
 DRIVERS_SRC = $(SRC_DIR)/drivers/console/init.c $(SRC_DIR)/drivers/vga/console.c $(SRC_DIR)/drivers/fs/fat32/fat32.c
 
 # Object files
-KERNEL_OBJ = $(KERNEL_SRC:$(SRC_DIR)/%.c=$(OUT_DIR)/%.o)
-DRIVERS_OBJ = $(DRIVERS_SRC:$(SRC_DIR)/%.c=$(OUT_DIR)/%.o)
+KERNEL_OBJ = $(patsubst $(SRC_DIR)/%.c,$(OUT_DIR)/%.o,$(KERNEL_SRC))
+DRIVERS_OBJ = $(patsubst $(SRC_DIR)/%.c,$(OUT_DIR)/%.o,$(DRIVERS_SRC))
 
 # Output directory
 OUT_DIR = out
-OUT_SUBDIRS = $(OUT_DIR) $(OUT_DIR)/$(SRC_DIR) $(OUT_DIR)/$(SRC_DIR)/kernel $(OUT_DIR)/$(SRC_DIR)/drivers $(OUT_DIR)/$(SRC_DIR)/drivers/console $(OUT_DIR)/$(SRC_DIR)/drivers/vga $(OUT_DIR)/$(SRC_DIR)/drivers/fs
 
 # Command line targets
 .PHONY: all help kernel clean
@@ -49,17 +48,16 @@ help:
 # Rule to compile kernel
 kernel: $(OUT_DIR)/kernel.bin
 
-# Rule to compile kernel
-$(OUT_DIR)/kernel.bin: $(KERNEL_OBJ) $(DRIVERS_OBJ)
-	$(CC) $(LDFLAGS) $(KERNEL_OBJ) $(DRIVERS_OBJ) -o $@
+$(OUT_DIR)/kernel.bin: $(KERNEL_OBJ) $(DRIVERS_OBJ) | $(OUT_DIR)
+	$(CC) $(LDFLAGS) $^ -o $@
 
 # Rule to compile C source files into object files
-$(OUT_DIR)/$(SRC_DIR)/%.o: $(SRC_DIR)/%.c | $(OUT_SUBDIRS)
+$(OUT_DIR)/%.o: $(SRC_DIR)/%.c | $(OUT_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Create output directories if they don't exist
-$(OUT_SUBDIRS):
-	mkdir -p $@
+# Create output directory if it doesn't exist
+$(OUT_DIR):
+	mkdir -p $(OUT_DIR)
 
 # Clean target
 clean:
