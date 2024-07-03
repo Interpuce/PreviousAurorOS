@@ -6,6 +6,7 @@
 // defined in various kernel-side C files.
 
 #pragma once // Use new `pragma once` instead of checking if the constant is defined.
+#include <stdint.h> // For types in functions
 
 // Information for Visual Studio Code users: don't belive the information
 //   from the editor that function is not defined. To disable this disgusting
@@ -35,6 +36,14 @@ extern void vga_clear_screen();
 
 // A function that detects VGA screen.
 extern int vga_check_monitor_presence();
+
+// ---------------------------- drivers/console/init.c ----------------------------
+
+// The main console function
+extern int cm_init(void);
+
+// The function that writes string on the screen
+extern void cm_write_string(char* write);
 
 // ---------------------------- kernel/kernel.h ----------------------------
 
