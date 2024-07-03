@@ -18,6 +18,7 @@
 #include <string.h>
 
 // Prototypes of internal functions
+
 static uint32_t fat32_get_fat_entry(uint32_t cluster);
 static void fat32_read_sector(uint32_t sector, void* buffer);
 static void fat32_write_sector(uint32_t sector, const void* buffer);
