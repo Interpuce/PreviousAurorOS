@@ -8,8 +8,7 @@
 // Some files needs this file so it was rewritted 
 // to be helpful in these files.
 
-#ifndef _STDDEF
-#define _STDDEF 1
+#pragma once // Use new `pragma once` instead of checking if the constant is defined.
 
 typedef unsigned long size_t;
 
@@ -18,5 +17,3 @@ typedef unsigned long size_t;
 #endif
 
 typedef long ptrdiff_t;
-
-#endif

@@ -8,11 +8,8 @@
 // Some files needs this file so it was rewritted 
 // to be helpful in these files.
 
-#ifndef _STDBOOL
-#define _STDBOOL 1
+#pragma once // Use new `pragma once` instead of checking if the constant is defined.
 
 #define bool _Bool
 #define true 1
 #define false 0
-
-#endif

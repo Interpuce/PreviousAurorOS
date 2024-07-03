@@ -5,8 +5,7 @@
 // This is a custom header file used to declare (not define) functions
 // defined in various kernel-side C files.
 
-#ifndef _KERDEF
-#define _KERDEF 1
+#pragma once // Use new `pragma once` instead of checking if the constant is defined.
 
 // ---------------------------- drivers/vga/console.c ----------------------------
 
@@ -43,5 +42,3 @@ extern int loop_system();
 
 // Initializes kernel subsystems.
 extern int init(int start_code);
-
-#endif

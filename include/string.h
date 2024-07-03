@@ -8,8 +8,7 @@
 // Some files needs this file so it was rewritted 
 // to be helpful in these files.
 
-#ifndef _STRINGH
-#define _STRINGH 1
+#pragma once // Use new `pragma once` instead of checking if the constant is defined.
 
 #include <stddef.h>
 
@@ -48,5 +47,3 @@ static inline int strcmp(const char *str1, const char *str2) {
 
     return *(unsigned char *)str1 - *(unsigned char *)str2;
 }
-
-#endif

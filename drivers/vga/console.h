@@ -4,6 +4,8 @@
 
 // VGA driver header file
 
+#pragma once // Use new `pragma once` instead of checking if the constant is defined.
+
 // Video ports addresses (VGA registers)
 #define VGA_CTRL_REG 0x3D4
 #define VGA_DATA_REG 0x3D5

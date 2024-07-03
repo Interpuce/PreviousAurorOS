@@ -7,6 +7,8 @@
 // NOTE: This driver needs more things, but for making simple OS
 //       and for now let implement the most important things.
 
+#pragma once // Use new `pragma once` instead of checking if the constant is defined.
+
 #include <stdint.h>
 
 struct BootSector {

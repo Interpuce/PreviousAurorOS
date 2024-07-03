@@ -8,8 +8,7 @@
 // Some files needs this file so it was rewritted 
 // to be helpful in these files.
 
-#ifndef _STDINT
-#define _STDINT 1
+#pragma once // Use new `pragma once` instead of checking if the constant is defined.
 
 // The various integer types definitions
 
@@ -120,5 +119,3 @@ typedef unsigned long long  uintmax_t;
 #define UINT16_C(value)     value ## U
 #define UINT32_C(value)     value ## U
 #define UINT64_C(value)     value ## ULL
-
-#endif
