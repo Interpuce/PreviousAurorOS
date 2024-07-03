@@ -20,7 +20,7 @@
 bool isVGApresent;
 
 // The main console function
-int cm_init() {
+int cm_init(void) {
     // Detect VGA
     if (vga_check_monitor_presence()) {
         // VGA is detected, set the variable that VGA is present
