@@ -5,6 +5,9 @@
 // The console implementation. It has basic console init implementation
 // and the console commands.
 
+// Include the functions declarations
+#include <kerdef.h>
+
 // Use the booleans
 #include <stdbool.h>
 
@@ -29,10 +32,20 @@ int cm_init() {
         // Set the variable that VGA is not present
         isVGApresent = false;
 
-        // Just exit the kernel, because it is useless (for now)
+        // Just exit the function, because it is useless (for now)
         return CODE_SUCCESS;
     }
 
     // Return -1 (the kernel cannot probably go here)
     return CODE_INVALID;
+}
+
+// The function that writes string on the screen
+void cm_write_string(char* write) {
+    if (isVGApresent == false) {
+        return; // The VGA is not present and for now there isn't a way to display character on the screen
+    } else {
+        // VGA is present, display characters
+        vga_print_string(write);
+    }
 }
