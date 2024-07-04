@@ -23,7 +23,7 @@ SRC_DIR = src
 OUT_DIR = out
 OBJ_DIR = $(OUT_DIR)/obj
 
-# Source files (they are obviously manually listed)
+# Source files (manually listed)
 KERNEL_SRC = $(SRC_DIR)/kernel/main.c $(SRC_DIR)/kernel/init.c
 DRIVERS_SRC = $(SRC_DIR)/drivers/vga/console.c $(SRC_DIR)/drivers/vga/detect.c $(SRC_DIR)/drivers/console/init.c
 
@@ -57,7 +57,11 @@ $(KERNEL_BIN): $(OBJ) | $(OUT_DIR)
 	$(CC) $(LDFLAGS) $^ -o $@
 
 # Rule to compile C source files into object files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/kernel/%.o: $(SRC_DIR)/kernel/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/drivers/%.o: $(SRC_DIR)/drivers/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
