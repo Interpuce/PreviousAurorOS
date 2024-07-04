@@ -23,9 +23,9 @@ SRC_DIR = src
 OUT_DIR = out
 OBJ_DIR = $(OUT_DIR)/obj
 
-# Source files
-KERNEL_SRC = $(wildcard $(SRC_DIR)/kernel/*.c)
-DRIVERS_SRC = $(wildcard $(SRC_DIR)/drivers/**/*.c)
+# Source files (they are obviously manually listed)
+KERNEL_SRC = $(SRC_DIR)/kernel/main.c $(SRC_DIR)/kernel/init.c
+DRIVERS_SRC = $(SRC_DIR)/drivers/vga/console.c $(SRC_DIR)/drivers/vga/detect.c $(SRC_DIR)/drivers/console/init.c
 
 # Object files
 KERNEL_OBJ = $(patsubst $(SRC_DIR)/kernel/%.c, $(OBJ_DIR)/kernel/%.o, $(KERNEL_SRC))
@@ -33,6 +33,9 @@ DRIVERS_OBJ = $(patsubst $(SRC_DIR)/drivers/%.c, $(OBJ_DIR)/drivers/%.o, $(DRIVE
 
 # All object files
 OBJ = $(KERNEL_OBJ) $(DRIVERS_OBJ)
+
+# Output binary
+KERNEL_BIN = $(OUT_DIR)/kernel.bin
 
 # Command line targets
 .PHONY: all help kernel clean
@@ -48,9 +51,9 @@ help:
 	@echo "  make clean   - Clean the output directory"
 
 # Rule to compile kernel
-kernel: $(OUT_DIR)/kernel.bin
+kernel: $(KERNEL_BIN)
 
-$(OUT_DIR)/kernel.bin: $(OBJ) | $(OUT_DIR)
+$(KERNEL_BIN): $(OBJ) | $(OUT_DIR)
 	$(CC) $(LDFLAGS) $^ -o $@
 
 # Rule to compile C source files into object files
