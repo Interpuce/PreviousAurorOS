@@ -9,8 +9,6 @@
 # Use Makefile to get the latest compilation mode!
 
 # Prevent Windows users from running Makefile
-# Note for Windows users: really, install Windows Subsystem for Linux,
-#                         programmers must use Linux sometimes...
 ifeq ($(OS),Windows_NT)
 $(error This Makefile is supported only on Linux; please use WSL for Windows)
 endif
@@ -20,25 +18,27 @@ CC = gcc
 CFLAGS = -Wall -Wextra -O2 -nostdinc -ffreestanding -fno-builtin -Iinclude
 LDFLAGS = -ffreestanding -nostdlib
 
-# Source directory
+# Directories
 SRC_DIR = src
+OUT_DIR = out
+OBJ_DIR = $(OUT_DIR)/obj
 
 # Source files
 KERNEL_SRC = $(wildcard $(SRC_DIR)/kernel/*.c)
 DRIVERS_SRC = $(wildcard $(SRC_DIR)/drivers/**/*.c)
 
 # Object files
-KERNEL_OBJ = $(KERNEL_SRC:$(SRC_DIR)/%.c=out/%.o)
-DRIVERS_OBJ = $(DRIVERS_SRC:$(SRC_DIR)/%.c=out/%.o)
+KERNEL_OBJ = $(patsubst $(SRC_DIR)/kernel/%.c, $(OBJ_DIR)/kernel/%.o, $(KERNEL_SRC))
+DRIVERS_OBJ = $(patsubst $(SRC_DIR)/drivers/%.c, $(OBJ_DIR)/drivers/%.o, $(DRIVERS_SRC))
 
-# Output directory
-OUT_DIR = out
+# All object files
+OBJ = $(KERNEL_OBJ) $(DRIVERS_OBJ)
 
 # Command line targets
 .PHONY: all help kernel clean
 
 # Default target
-all: help
+all: kernel
 
 # Help target
 help:
@@ -50,11 +50,12 @@ help:
 # Rule to compile kernel
 kernel: $(OUT_DIR)/kernel.bin
 
-$(OUT_DIR)/kernel.bin: $(KERNEL_OBJ) $(DRIVERS_OBJ) | $(OUT_DIR)
+$(OUT_DIR)/kernel.bin: $(OBJ) | $(OUT_DIR)
 	$(CC) $(LDFLAGS) $^ -o $@
 
 # Rule to compile C source files into object files
-out/%.o: $(SRC_DIR)/%.c | $(OUT_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Create output directory if it doesn't exist
