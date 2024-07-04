@@ -33,7 +33,7 @@ int cm_init(void) {
         isVGApresent = false;
 
         // Just exit the function, because it is useless (for now)
-        return CODE_SUCCESS;
+        return CODE_EXIT;
     }
 
     // Return -1 (the kernel cannot probably go here)

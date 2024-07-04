@@ -17,4 +17,7 @@
 // The invalid code definition.
 #define CODE_INVALID -1
 
+// The code exit definition
+#define CODE_EXIT -2
+
 #endif
