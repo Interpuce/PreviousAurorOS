@@ -39,14 +39,14 @@ kernelImg:
 	$(CC) $(LDFLAGS) $(C_OBJS) $(ASM_OBJS) -o kernelImg
 
 out/obj/%.c.o: $(SRC_DIR)/%.c
-	mkdir -p $(shell dirname '$@')
+	@mkdir -p $(shell dirname '$@')
 	$(CC) $(CFLAGS) -c $< -o $@
 
 out/obj/%.asm.o: $(SRC_DIR)/%.asm
-	nasm -f elf32 -c $< -o $@
+	@nasm -f elf32 -c $< -o $@
 
 dirs:
-	mkdir -p out out/obj
+	@mkdir -p out out/obj
 
 clean:
-	rm -rf $(OUT_DIR)
+	@rm -rf $(OUT_DIR)
