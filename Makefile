@@ -9,6 +9,8 @@
 # Use Makefile to get the latest compilation mode!
 
 # Prevent Windows users from running Makefile
+# Note for Windows users: really, install Windows Subsystem for Linux,
+#                         programmers must use Linux sometimes...
 ifeq ($(OS),Windows_NT)
 $(error This Makefile is supported only on Linux; please use WSL for Windows)
 endif
@@ -53,21 +55,29 @@ help:
 # Rule to compile kernel
 kernel: $(KERNEL_BIN)
 
-$(KERNEL_BIN): $(OBJ) | $(OUT_DIR)
+$(KERNEL_BIN): $(KERNEL_OBJ) $(DRIVERS_OBJ) | $(OUT_DIR)
 	$(CC) $(LDFLAGS) $^ -o $@
 
-# Rule to compile C source files into object files
-$(OBJ_DIR)/kernel/%.o: $(SRC_DIR)/kernel/%.c
+# Rule to compile C source files into object files for kernel
+$(OBJ_DIR)/kernel/%.o: $(SRC_DIR)/kernel/%.c | $(OBJ_DIR)/kernel
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR)/drivers/%.o: $(SRC_DIR)/drivers/%.c
+# Rule to compile C source files into object files for drivers
+$(OBJ_DIR)/drivers/%.o: $(SRC_DIR)/drivers/%.c | $(OBJ_DIR)/drivers
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Create output directory if it doesn't exist
 $(OUT_DIR):
 	@mkdir -p $(OUT_DIR)
+
+# Create object directory if it doesn't exist
+$(OBJ_DIR)/kernel:
+	@mkdir -p $(OBJ_DIR)/kernel
+
+$(OBJ_DIR)/drivers:
+	@mkdir -p $(OBJ_DIR)/drivers
 
 # Clean target
 clean:
