@@ -13,48 +13,37 @@ ifeq ($(OS),Windows_NT)
 $(error This Makefile is supported only on Linux; please use WSL for Windows)
 endif
 
-# Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 -nostdinc -ffreestanding -fno-builtin -Iinclude
+CFLAGS = -Wall -Wextra -O2 -nostdinc -ffreestanding -fno-builtin -Iinclude -m32
 LDFLAGS = -ffreestanding -nostdlib
 
-# Source directory
 SRC_DIR = src
 
-# Source files
-KERNEL_SRC = $(wildcard $(SRC_DIR)/kernel/*.c)
-DRIVERS_SRC = $(wildcard $(SRC_DIR)/drivers/**/*.c)
+C_SRCS = $(shell find $(SRC_DIR) -name *.c)
+C_OBJS = $(patsubst src/%.c,out/obj/%.c.o,$(C_SRCS))
+ASM_SRCS = $(shell find $(SRC_DIR) -name *.asm)
+ASM_OBJS = $(patsubst src/%.asm,out/obj/%.asm.o,$(ASM_SRCS))
 
-# Object files
-KERNEL_OBJ = $(KERNEL_SRC:$(SRC_DIR)/%.c=out/kernel/%.o)
-DRIVERS_OBJ = $(DRIVERS_SRC:$(SRC_DIR)/%.c=out/drivers/%.o)
-
-# Output directory
-OUT_DIR = out
-
-# Command line targets
-.PHONY: all kernel clean
-
-# Default target
+.PHONY: all
 all: kernel
 
-# Rule to compile kernel
-kernel: $(OUT_DIR)/kernel.bin
+.PHONY: kernel
+kernel: dirs $(C_OBJS) $(ASM_OBJS) kernelImg
 
-$(OUT_DIR)/kernel.bin: $(KERNEL_OBJ) $(DRIVERS_OBJ) | $(OUT_DIR)
-    $(CC) $(LDFLAGS) $^ -o $@
+kernelImg:
+	$(CC) $(LDFLAGS) $(C_OBJS) $(ASM_OBJS) -o kernelImg
 
-# Rule to compile C source files into object files
-out/kernel/%.o: $(SRC_DIR)/kernel/%.c | out/kernel
-    $(CC) $(CFLAGS) -c $< -o $@
+out/obj/%.c.o: $(SRC_DIR)/%.c
+	mkdir -p $(shell dirname '$@')
+	$(CC) $(CFLAGS) -c $< -o $@
 
-out/drivers/%.o: $(SRC_DIR)/drivers/%.c | out/drivers
-    $(CC) $(CFLAGS) -c $< -o $@
+out/obj/%.asm.o: $(SRC_DIR)/%.asm
+	nasm -f elf32 -c $< -o $@
 
-# Create output directories if they don't exist
-$(OUT_DIR) out/kernel out/drivers:
-    mkdir -p $@
+.PHONY: dirs
+dirs:
+	mkdir -p out out/obj
 
-# Clean target
+.PHONY: clean
 clean:
-    rm -rf $(OUT_DIR)
+	rm -rf $(OUT_DIR)
