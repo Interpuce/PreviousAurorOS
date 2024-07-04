@@ -14,6 +14,12 @@
 // Include functions declarations
 #include <kerdef.h>
 
+// Internal functions declaration
+
+int loop_update(void);
+int loop_system(void);
+int init(int start_code);
+
 // Initializes kernel subsystems.
 int init(int start_code) {
     if (start_code == 1) {
@@ -28,12 +34,12 @@ int init(int start_code) {
 
 // The update loop executed after system loop.
 // It will be used for multitasking in the future, now it is only placeholder.
-int loop_update() {
+int loop_update(void) {
     return CODE_SUCCESS;
 }
 
 // The system loop.
-int loop_system() {
+int loop_system(void) {
     return CODE_SUCCESS;
 }
 
