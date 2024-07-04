@@ -24,4 +24,7 @@
 
     // Disable disgusting compact folders
     "explorer.compactFolders": false,
+    "files.associations": {
+        "kerdef.h": "c"
+    },
 }

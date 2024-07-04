@@ -8,20 +8,39 @@
 // Include booleans
 #include <stdbool.h>
 
-// Include kernel API (from /includes/auror/kernel.h)
+// Include kernel API
 #include "kernel.h"
 
 // Include functions declarations
 #include <kerdef.h>
 
+// Initializes kernel subsystems.
+int init(int start_code) {
+    if (start_code == 1) {
+        // Initialize console mode
+        cm_init();
+
+        return CODE_SUCCESS; // Returns success.
+    } else {
+        return CODE_INVALID; // The start code is probably invalid or not implemented.
+    }
+}
+
+// The update loop executed after system loop.
+// It will be used for multitasking in the future, now it is only placeholder.
+int loop_update() {
+    return CODE_SUCCESS;
+}
+
+// The system loop.
+int loop_system() {
+    return CODE_SUCCESS;
+}
+
 // The main kernel function. Here kernel starts working and uses functions from the kernel API (in the future).
-int main() {
+void main() {
     // Init kernel subsystems
     init(1);
-
-    // Init console mode (for now GUI is not supported)
-    // The cm_init function is linked from /drivers.console/init.c file
-    cm_init();
 
     // The main kernel loop
     while (true) {
