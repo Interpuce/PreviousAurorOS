@@ -18,65 +18,43 @@ CC = gcc
 CFLAGS = -Wall -Wextra -O2 -nostdinc -ffreestanding -fno-builtin -Iinclude
 LDFLAGS = -ffreestanding -nostdlib
 
-# Directories
+# Source directory
 SRC_DIR = src
-OUT_DIR = out
-OBJ_DIR = $(OUT_DIR)/obj
 
-# Source files (manually listed)
-KERNEL_SRC = $(SRC_DIR)/kernel/main.c $(SRC_DIR)/kernel/init.c
-DRIVERS_SRC = $(SRC_DIR)/drivers/vga/console.c $(SRC_DIR)/drivers/vga/detect.c $(SRC_DIR)/drivers/console/init.c
+# Source files
+KERNEL_SRC = $(wildcard $(SRC_DIR)/kernel/*.c)
+DRIVERS_SRC = $(wildcard $(SRC_DIR)/drivers/**/*.c)
 
 # Object files
-KERNEL_OBJ = $(patsubst $(SRC_DIR)/kernel/%.c, $(OBJ_DIR)/kernel/%.o, $(KERNEL_SRC))
-DRIVERS_OBJ = $(patsubst $(SRC_DIR)/drivers/%.c, $(OBJ_DIR)/drivers/%.o, $(DRIVERS_SRC))
+KERNEL_OBJ = $(KERNEL_SRC:$(SRC_DIR)/%.c=out/kernel/%.o)
+DRIVERS_OBJ = $(DRIVERS_SRC:$(SRC_DIR)/%.c=out/drivers/%.o)
 
-# All object files
-OBJ = $(KERNEL_OBJ) $(DRIVERS_OBJ)
-
-# Output binary
-KERNEL_BIN = $(OUT_DIR)/kernel.bin
+# Output directory
+OUT_DIR = out
 
 # Command line targets
-.PHONY: all help kernel clean
+.PHONY: all clean
 
 # Default target
 all: kernel
 
-# Help target
-help:
-	@echo "Available commands:"
-	@echo "  make help    - Show this help message"
-	@echo "  make kernel  - Build the kernel binary"
-	@echo "  make clean   - Clean the output directory"
-
 # Rule to compile kernel
-kernel: $(KERNEL_BIN)
+kernel: $(OUT_DIR)/kernel.bin
 
-$(KERNEL_BIN): $(KERNEL_OBJ) $(DRIVERS_OBJ) | $(OUT_DIR)
-	$(CC) $(LDFLAGS) $^ -o $@
+$(OUT_DIR)/kernel.bin: $(KERNEL_OBJ) $(DRIVERS_OBJ) | $(OUT_DIR)
+    $(CC) $(LDFLAGS) $^ -o $@
 
-# Rule to compile C source files into object files for kernel
-$(OBJ_DIR)/kernel/%.o: $(SRC_DIR)/kernel/%.c | $(OBJ_DIR)/kernel
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+# Rule to compile C source files into object files
+out/kernel/%.o: $(SRC_DIR)/kernel/%.c | out/kernel
+    $(CC) $(CFLAGS) -c $< -o $@
 
-# Rule to compile C source files into object files for drivers
-$(OBJ_DIR)/drivers/%.o: $(SRC_DIR)/drivers/%.c | $(OBJ_DIR)/drivers
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+out/drivers/%.o: $(SRC_DIR)/drivers/%.c | out/drivers
+    $(CC) $(CFLAGS) -c $< -o $@
 
-# Create output directory if it doesn't exist
-$(OUT_DIR):
-	@mkdir -p $(OUT_DIR)
-
-# Create object directory if it doesn't exist
-$(OBJ_DIR)/kernel:
-	@mkdir -p $(OBJ_DIR)/kernel
-
-$(OBJ_DIR)/drivers:
-	@mkdir -p $(OBJ_DIR)/drivers
+# Create output directories if they don't exist
+$(OUT_DIR) out/kernel out/drivers:
+    mkdir -p $@
 
 # Clean target
 clean:
-	rm -rf $(OUT_DIR)
+    rm -rf $(OUT_DIR)
