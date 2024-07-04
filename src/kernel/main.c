@@ -19,6 +19,7 @@
 int loop_update(void);
 int loop_system(void);
 int init(int start_code);
+void main(void);
 
 // Initializes kernel subsystems.
 int init(int start_code) {
@@ -43,8 +44,8 @@ int loop_system(void) {
     return CODE_SUCCESS;
 }
 
-// The main kernel function. Here kernel starts working and uses functions from the kernel API (in the future).
-void main() {
+/* The main kernel function. Here kernel starts working and uses functions from the kernel API (in the future). */
+void main(void) {
     // Init kernel subsystems
     init(1);
 
