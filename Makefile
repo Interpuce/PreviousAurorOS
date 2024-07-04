@@ -33,7 +33,7 @@ DRIVERS_OBJ = $(DRIVERS_SRC:$(SRC_DIR)/%.c=out/drivers/%.o)
 OUT_DIR = out
 
 # Command line targets
-.PHONY: all clean
+.PHONY: all kernel clean
 
 # Default target
 all: kernel
