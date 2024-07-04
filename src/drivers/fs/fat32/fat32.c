@@ -42,10 +42,10 @@ static void fat32_write_sector(uint32_t sector, const void* buffer) {
 // Function to get the FAT entry for a given cluster
 static uint32_t fat32_get_fat_entry(uint32_t cluster) {
     uint32_t fat_offset = cluster * 4;
-    uint32_t fat_sector = boot_sector.reservedSectors + (fat_offset / boot_sector.bytesPerSector);
-    uint32_t entry_offset = fat_offset % boot_sector.bytesPerSector;
+    uint32_t fat_sector = fat32_boot_sector.reservedSectors + (fat_offset / fat32_boot_sector.bytesPerSector);
+    uint32_t entry_offset = fat_offset % fat32_boot_sector.bytesPerSector;
 
-    uint8_t sector_buffer[boot_sector.bytesPerSector];
+    uint8_t sector_buffer[fat32_boot_sector.bytesPerSector];
     fat32_read_sector(fat_sector, sector_buffer);
 
     return *((uint32_t*)&sector_buffer[entry_offset]) & 0x0FFFFFFF;
@@ -53,7 +53,7 @@ static uint32_t fat32_get_fat_entry(uint32_t cluster) {
 
 // Function to read a file or directory entry from a cluster
 void fat32_read_directory_entry(uint32_t cluster, struct DirectoryEntry* entry) {
-    uint32_t sector = boot_sector.reservedSectors + (cluster - 2) * boot_sector.sectorsPerCluster;
+    uint32_t sector = fat32_boot_sector.reservedSectors + (cluster - 2) * fat32_boot_sector.sectorsPerCluster;
     fat32_read_sector(sector, entry);
 }
 
