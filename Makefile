@@ -9,8 +9,6 @@
 # Use Makefile to get the latest compilation mode!
 
 # Prevent Windows users from running Makefile
-# Note for Windows users: really, install Windows Subsystem for Linux,
-#                         programmers must use Linux sometimes...
 ifeq ($(OS),Windows_NT)
 $(error This Makefile is supported only on Linux; please use WSL for Windows)
 endif
