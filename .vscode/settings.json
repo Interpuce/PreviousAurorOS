@@ -1,0 +1,27 @@
+{
+    "files.exclude": {
+        // Exclude .github because no one needs it
+        "**/.github": true,
+
+        // Exclude .vscode because we can make changes to them by `Ctrl + ,` or simply by `Ctrl + P`
+        "**/.vscode": true
+    },
+
+    // Auto-save the files when window is blured
+    "files.autoSave": "onFocusChange",
+
+    // Use default font-size
+    "editor.fontSize": 14,
+
+    // Use default font-family
+    "editor.fontFamily": "Consolas, 'Courier New', monospace",
+
+    // Use normal Tab key spaces
+    "editor.tabSize": 4,
+
+    // Allow wordwrapping
+    "editor.wordWrap": "on",
+
+    // Disable disgusting compact folders
+    "explorer.compactFolders": false,
+}
