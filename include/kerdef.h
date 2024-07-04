@@ -44,14 +44,3 @@ extern int cm_init(void);
 
 // The function that writes string on the screen
 extern void cm_write_string(char* write);
-
-// ---------------------------- kernel/kernel.h ----------------------------
-
-// The update loop executed after system loop
-extern int loop_update();
-
-// The system loop
-extern int loop_system();
-
-// Initializes kernel subsystems.
-extern int init(int start_code);
