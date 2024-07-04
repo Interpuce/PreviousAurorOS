@@ -54,13 +54,13 @@ $(OUT_DIR)/kernel.bin: $(OBJ) | $(OUT_DIR)
 	$(CC) $(LDFLAGS) $^ -o $@
 
 # Rule to compile C source files into object files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	mkdir -p $(dir $@)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Create output directory if it doesn't exist
 $(OUT_DIR):
-	mkdir -p $(OUT_DIR)
+	@mkdir -p $(OUT_DIR)
 
 # Clean target
 clean:
