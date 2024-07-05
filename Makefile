@@ -37,6 +37,7 @@ kernel: dirs $(C_OBJS) $(ASM_OBJS) kernelImg
 
 kernelImg:
 	$(CC) $(LDFLAGS) $(C_OBJS) $(ASM_OBJS) -o kernelImg
+	@echo "kernel: ./kernelImg is ready!"
 
 out/obj/%.c.o: $(SRC_DIR)/%.c
 	@mkdir -p $(shell dirname '$@')
