@@ -51,7 +51,7 @@ int main(void) {
     // Init kernel subsystems
     if (init(1) == CODE_EXIT) {
         // Exit the kernel, because initialization executed a problem
-        return CODE_SUCCESS; // CODE_SUCCESS simply because this function must return 0
+        return CODE_SUCCESS; // CODE_SUCCESS simply because this function must return success
     }
 
     // The main kernel loop
