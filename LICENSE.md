@@ -10,6 +10,8 @@
 
 3. AurorOS is provided without any guarantees or promises. Technical support covers the latest version of the system and the penultimate version for up to 3 months.
 
+4. Only the Polish version of the license available at `https://github.com/Interpuce/AurorOS/blob/main/docs/licenses/OS.md` is legally valid. The English version of the license exists for your convenience.
+
 ## Using source code
 
 1. The only persons who are not bound by the terms described in this section are Interpuce Team members.
