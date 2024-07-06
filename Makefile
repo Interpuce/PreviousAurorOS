@@ -28,11 +28,8 @@ ASM_SRCS = $(shell find $(SRC_DIR) -name *.asm)
 ASM_OBJS = $(patsubst src/%.asm,out/obj/%.asm.o,$(ASM_SRCS))
 
 # Rules
-.PHONY: all
+.PHONY: all kernel dirs
 all: kernel
-
-# Rules to compilation
-.PHONY: all kernel dirs 
 kernel: dirs $(C_OBJS) $(ASM_OBJS) kernelImg
 
 kernelImg:
