@@ -74,26 +74,3 @@ void keyboard_interrupt_handler(int sig) {
         // Idk what to put here too
     }
 }
-
-int main() {
-    // Gain access to the I/O ports
-    if (ioperm(KBD_DATA_PORT, 1, 1) != 0 || ioperm(KBD_STATUS_PORT, 1, 1) != 0) {
-        perror("ioperm");
-        exit(1);
-    }
-
-    // Set up the interrupt handler
-    if (signal(SIGINT, keyboard_interrupt_handler) == SIG_ERR) {
-        perror("signal");
-        exit(1);
-    }
-
-    printf("Press Ctrl+C to exit\n");
-
-    // Main loop of the driver
-    while (1) {
-        pause(); // Wait for an interrupt...
-    }
-
-    return 0;
-}
