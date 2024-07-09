@@ -4,5 +4,5 @@
 # AurorOS build result
 out/
 
-# Add objects
+# Objects
 **/*.o
