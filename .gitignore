@@ -3,3 +3,6 @@
 
 # AurorOS build result
 out/
+
+# Add objects
+**/*.o
