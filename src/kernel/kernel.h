@@ -8,7 +8,7 @@
 #ifndef _AUROR_KERNEL
 #define _AUROR_KERNEL 1
 
-// The current AurorOS version in the major:minor:patch format
+// The current AurorOS version in the major:minor:patch:snapshot format
 #define OS_VERSION "0.0.1 Snapshot 1"
 
 // The success code definition.
