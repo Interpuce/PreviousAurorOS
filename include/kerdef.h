@@ -44,3 +44,8 @@ extern int cm_init(void);
 
 // The function that writes string on the screen
 extern void cm_write_string(char* write);
+
+// ---------------------------- drivers/keyboard/ps2.c ----------------------------
+
+// Interrupt handler function
+extern void keyboard_interrupt_handler(int sig);
