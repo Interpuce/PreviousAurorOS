@@ -1,6 +1,6 @@
 # AurorOS license
 
-[View original, not translated license](https://github.com/Interpuce/AurorOS/blob/main/docs/licenses/OS.md)
+[View original, not translated license](https://github.com/Interpuce/AurorOS/blob/main/docs/LICENSE.md)
 
 ## Preliminary provisions
 
@@ -10,7 +10,7 @@
 
 3. AurorOS is provided without any guarantees or promises. Technical support covers the latest version of the system and the penultimate version for up to 3 months.
 
-4. Only the Polish version of the license available at `https://github.com/Interpuce/AurorOS/blob/main/docs/licenses/OS.md` is legally valid. The English version of the license exists for your convenience.
+4. Only the Polish version of the license available at `https://github.com/Interpuce/AurorOS/blob/main/docs/licenses/LICENSE.md` is legally valid. The English version of the license exists for your convenience.
 
 ## Using source code
 

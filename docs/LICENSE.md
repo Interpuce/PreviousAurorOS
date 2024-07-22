@@ -10,7 +10,7 @@
 
 3. AurorOS podawany jest bez żadnych gwarancji ani obietnic. Wsparcie techniczne obowiązuje najnowszą wersję systemu i przedostatnią wersję do 3 miesięcy.
 
-4. Tylko polska wersja licencji dostępna pod adresem `https://github.com/Interpuce/AurorOS/blob/main/docs/licenses/OS.md` jest prawnie ważna. Angielska wersja licencji istnieje dla wygody użytkownika.
+4. Tylko polska wersja licencji dostępna pod adresem `https://github.com/Interpuce/AurorOS/blob/main/docs/LICENSE.md` jest prawnie ważna. Angielska wersja licencji istnieje dla wygody użytkownika.
 
 ## Używanie kodu źródłowego
 
