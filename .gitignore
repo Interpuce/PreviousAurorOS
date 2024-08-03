@@ -1,8 +1,0 @@
-# Useless things from .vscode
-**/.vscode/c_cpp_properties.json
-
-# AurorOS build result
-out/
-
-# Objects
-**/*.o
