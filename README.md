@@ -1,3 +1,7 @@
+# Previous AurorOS note
+
 > [!IMPORTANT]
-> AurorOS is closed-source. Join our official Discord [server](https://dsc.gg/Auror-OS) for more information.
-> You can also check out weekly info about aurorOS updates on [Bakery of eclair25](https://discord.gg/fHs2pqQgPy)
+> AurorOS has been moved to closed-source repository. Join our official Discord [server](https://dsc.gg/Auror-OS) for more information.
+
+> [!TIP]
+> You can see [AurorOS commits](https://github.com/Interpuce/PreviousAurorOS/commits) to view old commits.
